@@ -42,25 +42,35 @@ func (c *AuthController) DoLogin(k *knot.WebContext) interface{} {
 		return c.SetResultError(err.Error(), nil)
 	}
 
-	k.SetSession("sessionId", sessionId)
-	k.SetSession("username", payload.Username)
+	activeUser := new(acl.User)
+	err = acl.FindUserByLoginID(activeUser, payload.Username)
+	if err != nil {
+		tk.Println(err.Error())
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	k.SetSession(SESSION_KEY, sessionId)
+	k.SetSession(SESSION_USERNAME, payload.Username)
+	k.SetSession(SESSION_USER, string(tk.Jsonify(activeUser)))
 
 	return c.SetResultOK(tk.M{}.
-		Set("sessionId", sessionId).
-		Set("username", payload.Username))
+		Set(SESSION_KEY, sessionId).
+		Set(SESSION_USERNAME, payload.Username))
 }
 
 func (c *AuthController) DoLogout(k *knot.WebContext) interface{} {
 	k.Config.OutputType = knot.OutputJson
 
-	sessionId := tk.ToString(k.Session("sessionId", ""))
+	sessionId := tk.ToString(k.Session(SESSION_KEY, ""))
 	err := acl.Logout(sessionId)
 	if err != nil {
 		tk.Println(err.Error())
 		return c.SetResultError(err.Error(), nil)
 	}
 
-	k.SetSession("sessionId", "")
+	k.SetSession(SESSION_KEY, "")
+	k.SetSession(SESSION_USERNAME, "")
+	k.SetSession(SESSION_USER, "")
 	c.Redirect(k, "auth", "login")
 
 	return nil

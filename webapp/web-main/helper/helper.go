@@ -92,6 +92,7 @@ func PrepareDefaultUser() error {
 	user.FullName = username
 	user.Password = password
 	user.Enable = true
+	user.Groups = []string{"user"}
 
 	err = acl.Save(user)
 	if err != nil {
@@ -104,5 +105,32 @@ func PrepareDefaultUser() error {
 	}
 
 	tk.Println("           >", "Default user", username, "created with standard password has been created")
+
+	username = "admin"
+	password = "Password.1"
+
+	user = new(acl.User)
+	err = acl.FindUserByLoginID(user, username)
+	if err == nil || user.LoginID == username {
+		return err
+	}
+
+	user.ID = tk.RandomString(32)
+	user.LoginID = username
+	user.FullName = username
+	user.Password = password
+	user.Enable = true
+	user.Groups = []string{"admin"}
+
+	err = acl.Save(user)
+	if err != nil {
+		return err
+	}
+
+	err = acl.ChangePassword(user.ID, password)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

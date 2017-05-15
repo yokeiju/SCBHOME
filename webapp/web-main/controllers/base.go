@@ -9,9 +9,6 @@ import (
 	"net/http"
 )
 
-var AppName string
-var AppFolder string
-
 type IBaseController interface {
 }
 
@@ -39,6 +36,17 @@ type Previlege struct {
 	Username string
 }
 
+var (
+	AppName   string
+	AppFolder string
+)
+
+const (
+	SESSION_KEY      string = "sessionId"
+	SESSION_USERNAME string = "username"
+	SESSION_USER     string = "user"
+)
+
 func (b *BaseController) SetupForHTML(k *knot.WebContext) {
 	k.Config.OutputType = knot.OutputTemplate
 	k.Config.NoLog = true
@@ -58,14 +66,13 @@ func (b *BaseController) SetupForAJAX(k *knot.WebContext) {
 }
 
 func (b *BaseController) IsAuthenticate(k *knot.WebContext, callback, failback func()) {
-	sessionid := tk.ToString(k.Session("sessionId", ""))
-	tk.Println(">>>", sessionid)
+	sessionid := tk.ToString(k.Session(SESSION_KEY, ""))
 	if acl.IsSessionIDActive(sessionid) {
 		if callback != nil {
 			callback()
 		}
 	} else {
-		k.SetSession("sessionId", "")
+		k.SetSession(SESSION_KEY, "")
 		if failback != nil {
 			failback()
 		}
@@ -73,14 +80,14 @@ func (b *BaseController) IsAuthenticate(k *knot.WebContext, callback, failback f
 }
 
 func (b *BaseController) IsLoggedIn(k *knot.WebContext) bool {
-	return (k.Session("sessionId") != nil)
+	return (k.Session(SESSION_KEY) != nil)
 }
 
 func (b *BaseController) GetCurrentUser(k *knot.WebContext) string {
-	if k.Session("sessionId") == nil {
+	if k.Session(SESSION_KEY) == nil {
 		return ""
 	}
-	return k.Session("username").(string)
+	return k.Session(SESSION_USERNAME).(string)
 }
 
 func (b *BaseController) Redirect(k *knot.WebContext, controller string, action string) {
@@ -101,6 +108,16 @@ func (b *BaseController) SetResultError(msg string, data interface{}) *tk.Result
 	r.Data = data
 
 	return r
+}
+
+func (b *BaseController) GetBaseData(k *knot.WebContext) tk.M {
+	data := tk.M{}
+
+	if b.IsLoggedIn(k) {
+		data.Set(SESSION_USER, k.Session(SESSION_USER))
+	}
+
+	return data
 }
 
 // func (b *BaseController) AccessMenu(k *knot.WebContext) []tk.M {
