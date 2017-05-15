@@ -1,0 +1,29 @@
+<script src="{{ NoCacheUrl "/web/static/main/js/auth-login.js" }}"></script>
+<link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/auth-login.css" }}" />
+
+<div class="page-content page-login" data-bind="with: pageLogin, submit: onSubmit">
+	<div class="left-side">
+		<form>
+			<div class="logo">
+				<img src="/web/static/main/img/bulbasaur_poker_face_____by_bulbapokerfaceplz-d4iv3ek.png">
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<input required type="text" class="form-control input-sm" placeholder="Username" data-bind="value: inputUsername">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input required type="password" class="form-control input-sm" placeholder="Password" data-bind="value: inputPassword">
+			</div>
+			<div class="pull-left">
+				<span class="forgot-password">Can't access your account?</span>
+			</div>
+			<div class="pull-right">
+				<button type="submit" class="btn btn-sm btn-primary">
+					<i class="fa fa-paper-plane"></i>&nbsp; Submit
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="right-side"></div>
+</div>
