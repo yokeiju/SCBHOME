@@ -12,6 +12,7 @@ type AuthController struct {
 
 func (c *AuthController) Login(k *knot.WebContext) interface{} {
 	k.Config.OutputType = knot.OutputTemplate
+	k.Config.LayoutTemplate = ""
 
 	return tk.M{}
 }
