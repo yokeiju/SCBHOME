@@ -12,7 +12,20 @@ pageLogin.registerSubmitEvent = function () {
         payload.username = pageLogin.inputUsername()
         payload.password = pageLogin.inputPassword()
         ajaxPost('/web/auth/dologin', payload, function (res) {
-        	location.href = '/'
+        	if (res.Status !== 'OK') {
+        		swal("Login Failed!", res.Message, "error")
+        		return
+        	}
+
+        	swal({
+				title: 'Login Success',
+				text: 'Will automatically redirect to dashboard page',
+				type: 'success',
+				timer: 2000,
+				showConfirmButton: false
+			}, function () {
+	        	location.href = '/'
+			});
         })
     })
 }
