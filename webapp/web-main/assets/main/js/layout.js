@@ -3,6 +3,7 @@ viewModel.title.subscribe(function (value) {
     jQuery('title').text(value)
 })
 viewModel.title('SCB Home')
+viewModel.isLoading = ko.observable(false)
 
 viewModel.normalizeData = function (e, dateOrStr) {
     if (dateOrStr == undefined) {
