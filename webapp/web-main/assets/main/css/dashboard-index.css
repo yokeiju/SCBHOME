@@ -1,0 +1,95 @@
+.titlehead {
+	background: #333f50; 
+	font-size: 24px;
+	color: #ffffff;
+	text-align: center;
+	padding: 10px 0px;
+	font-family: "Helvetica Neue", "Segoe UI", Arial;
+}
+
+.confbutton {
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+.container-fluid {
+	padding: 0px;
+}
+
+.top-margin{
+	margin-top: 10px;
+}
+
+.filtertop{
+	text-align: center;
+}
+
+.filter {
+	width: 400px;
+	text-align: center;
+	border-radius: 20px;
+	border-style: none;
+    background: #cdcdcd;
+}
+
+.leftposition {
+	text-align: right;
+	padding-right: 0px;
+}
+
+.box {
+    width: 23%;
+    border: none;
+    padding: 25px;
+    margin:10px;
+    text-align: center;
+    color: #ffffff;
+    float:left;
+}
+
+.box2 {
+    width: 45%;
+    border: none;
+    padding: 25px;
+    margin:10px 10px 10px 10px;
+    text-align: center;
+    color: #ffffff;
+    float:left;
+    font-size: 20px;
+}
+
+.c1 {
+	 background-color:#00b0f0;
+}
+
+.c2 {
+	 background-color:#23c6c8;
+}
+
+.c3 {
+	 background-color:#ff9966;
+}
+
+.c4 {
+	 background-color:#666699;
+}
+
+.projecttitle {
+	font-size: 24px;
+}
+
+.projecttitle2{
+	font-size: 24px;
+}
+.subproject {
+	font-size: 12px;
+}
+
+.boxpanel2 {
+	padding:10px;
+	margin-left: 10px;
+	margin-right: -10px;
+	background-color: #333f50;
+	color: #ffffff;
+	text-align: center;
+}
