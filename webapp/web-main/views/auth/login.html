@@ -2,10 +2,11 @@
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/auth-login.css" }}" />
 
 <div class="page-content page-login" data-bind="with: pageLogin">
-	<div class="left-side">
+	<div class="left-side" style="background-image: url('/web/static/main/images/loginwall.jpg')"></div>
+	<div class="right-side">
 		<form>
 			<div class="logo">
-				<img src="/web/static/main/img/bulbasaur_poker_face_____by_bulbapokerfaceplz-d4iv3ek.png">
+				<img src="/web/static/main/images/1024px-Standard_Chartered.png">
 			</div>
 			<div class="form-group">
 				<label>Username</label>
@@ -15,15 +16,19 @@
 				<label>Password</label>
 				<input required type="password" class="form-control input-sm" placeholder="Password" data-bind="value: inputPassword">
 			</div>
-			<div class="pull-left">
-				<span class="forgot-password">Can't access your account?</span>
-			</div>
 			<div class="pull-right">
 				<button type="submit" class="btn btn-sm btn-primary">
 					<i class="fa fa-paper-plane"></i>&nbsp; Submit
 				</button>
 			</div>
+			<div class="pull-left">
+				<a href="#" class="forgot-password">Can't access your account?</a>
+			</div>
+			<div class="clearfix"></div>
+			<div class="footnote">
+				<label><b>© 2013 - 2017 EACIIT Pte Ltd</b></label>
+				<label>Earnings & Cash Improvement Information Technologies</label>
+			</div>
 		</form>
 	</div>
-	<div class="right-side"></div>
 </div>

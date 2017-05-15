@@ -1,5 +1,10 @@
+viewModel.title = ko.observable('')
+viewModel.title.subscribe(function (value) {
+    jQuery('title').text(value)
+})
+viewModel.title('SCB Home')
 
-function normalizeData(e, dateOrStr) {
+viewModel.normalizeData = function (e, dateOrStr) {
     if (dateOrStr == undefined) {
         dateOrStr = 'date'
     }
@@ -17,8 +22,7 @@ function normalizeData(e, dateOrStr) {
 
     return e
 }
-
-function ajaxPost(url, data, callbackOK, callbackNope) {
+viewModel.ajaxPost = function (url, data, callbackOK, callbackNope) {
     if (typeof data === 'undefined') data = {}
     if (typeof callbackOK === 'undefined') callbackOK = {}
     if (typeof callbackNope === 'undefined') callbackNope = {}
@@ -41,3 +45,6 @@ function ajaxPost(url, data, callbackOK, callbackNope) {
         }
     })
 }
+
+window.normalizeData = viewModel.normalizeData
+window.ajaxPost = viewModel.ajaxPost 
