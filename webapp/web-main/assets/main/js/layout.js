@@ -51,7 +51,7 @@ window.normalizeData = viewModel.normalizeData
 window.ajaxPost = viewModel.ajaxPost 
 
 viewModel.registerSidebarToggle = function () {
-    $('.layout-sidebar .navbar-nav li a').on('click', function () {
+    $('.layout-sidebar .navbar-nav li a.toggler').on('click', function () {
         if ($('body').hasClass('close-sidebar')) {
             $('body').removeClass('close-sidebar')
         } else {

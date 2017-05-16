@@ -1,0 +1,22 @@
+.grid .notify-color {
+	display: inline-block;
+    width: 20px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+.grid .notify-link {
+	font-weight: normal;
+    font-size: 11px;
+}
+.grid input[type=checkbox], .grid a[href] {
+	cursor: pointer;
+}
+.filter {
+	margin-bottom: 10px;
+    padding: 0px 20px;
+}
+.filter h3 {
+	margin: 0px;
+    margin-top: 3px;
+    font-weight: bold;
+}
