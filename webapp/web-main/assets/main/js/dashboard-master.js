@@ -5,7 +5,7 @@ dashboard.listOfPlatforms = ko.observableArray([
     { _id: 'P01', Name: 'EACIIT App', Color: '#e67e22' },
     { _id: 'P02', Name: 'Exellerator', Color: '#2980b9' },
     { _id: 'P03', Name: 'UAT', Color: '#27ae60' },
-    { _id: 'P04', Name: 'Development', Color: '#8e44ad' }
+    { _id: 'P04', Name: 'Development', Color: '#666699' }
 ])
 
 dashboard.refresh = function () {
