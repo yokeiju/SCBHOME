@@ -6,7 +6,6 @@ NETWORK:
 
 CACHE:
 /web/static/main/images/loginwall.jpg
-/web/static/main/images/1024px-Standard_Chartered.png
 /web/static/html5shiv/html5shiv.min.js
 /web/static/normalizecss/normalize.css
 /web/static/jquery/jquery-2.2.4.min.js
