@@ -123,7 +123,8 @@ body.page-login .layout-container {
 }
 .layout-sidebar .navbar-nav li a:not(.toggler) i {
     margin-top: 4px;
-    margin-right: 10px
+    margin-right: 10px;
+    width: 16px;
 }
 .layout-sidebar .navbar-nav li a:not(.toggler) span {
     transition: .1s ease-in-out opacity;
@@ -165,6 +166,6 @@ body.page-login .layout-container {
     margin-left: 200px;
     transition: .2s ease-in-out margin-left;
 }
-.layout-container .layout-content {
+body:not(.page-login) .layout-container .layout-content {
     padding: 10px;
 }

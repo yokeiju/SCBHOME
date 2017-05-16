@@ -17,20 +17,41 @@
 
 .box {
     border: none;
-    padding: 25px;
-    text-align: center;
     color: #ffffff;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 17px;
+    border-radius: 5px;
+    margin-bottom: 18px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+    height: 162px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow .25s ease-in-out;
+    background-size: 100%;
+}
+.box:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.box:hover .projecttitle {
+    -webkit-filter: blur(1.5px);
+    filter: blur(1.5px);
+}
+.box:hover .subproject {
+    -webkit-filter: blur(1.5px);
+    filter: blur(1.5px);
 }
 
 .box2 {
     width: 49%;
     border: none;
     padding: 25px;
-    margin-top: 10px;
+    margin-top: 2%;
     text-align: center;
     color: #ffffff;
     float:left;
-    font-size: 20px;
+    font-size: 18px;
 }
 .box2:nth-child(even) {
     margin-left: 1%;
@@ -63,13 +84,40 @@
 
 .projecttitle {
     font-size: 24px;
+    display: table;
+    height: 90px;
+    width: 100%;
+    transition: filter .25s ease-in-out;
+}
+.projecttitle:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.2);
+    content: " ";
+}
+.projecttitle div {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 .projecttitle2{
     font-size: 24px;
 }
 .subproject {
-    font-size: 12px;
+    position: absolute;
+    background-color: #293846;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    padding-top: 10px;
+    transition: filter .25s ease-in-out;
 }
 
 .boxpanel2 {

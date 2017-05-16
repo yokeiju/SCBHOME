@@ -50,6 +50,20 @@ func (c *DashboardController) GetPage(k *knot.WebContext) interface{} {
 		return c.SetResultError(err.Error(), nil)
 	}
 
+	if len(data) == 0 {
+		data = []models.PageModel{
+			{Id: "p1", ProjectName: "OCIR", PlatformId: "P01", URL: "scbocir-dev.eaciit.com/live/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p2", ProjectName: "IKEA", PlatformId: "P01", URL: "scbikea.eaciit.com/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p3", ProjectName: "Super Connect 5", PlatformId: "P01", URL: "http://www.superconnect5.com/admin/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p4", ProjectName: "BEF", PlatformId: "P01", URL: "http://scb-bef.eaciitapp.com/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p5", ProjectName: "Sales Perf Dashboard", PlatformId: "P02", URL: "https://cbi.exellerator.io/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p6", ProjectName: "Mobile Money", PlatformId: "P01", URL: "http://scmm.eaciit.com/dashboard/default", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p7", ProjectName: "TWIST", PlatformId: "P02", URL: "https://twist.exellerator.io/", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p8", ProjectName: "FMI", PlatformId: "P02", URL: "https://fmi.exellerator.io", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+			{Id: "p9", ProjectName: "FMI Dev", PlatformId: "P04", URL: "http://fmidev.eaciitapp.com", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
+		}
+	}
+
 	return c.SetResultOK(data)
 }
 

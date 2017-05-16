@@ -29,18 +29,7 @@ dashboard.getPageData = function (callback) {
             return
         }
 
-        var raw = [
-            { Id: 'p1', ProjectName: 'OCIR', PlatformId: 'P01', URL: 'scbocir-dev.eaciit.com/live/dashboard/default', Username: '', Password: '' },
-            { Id: 'p2', ProjectName: 'IKEA', PlatformId: 'P01', URL: 'scbikea.eaciit.com/dashboard/default', Username: '', Password: '' },
-            { Id: 'p3', ProjectName: 'Super Connect 5', PlatformId: 'P01', URL: 'http://www.superconnect5.com/admin/dashboard/default', Username: '', Password: '' },
-            { Id: 'p4', ProjectName: 'BEF', PlatformId: 'P01', URL: 'http://scb-bef.eaciitapp.com/dashboard/default', Username: '', Password: '' },
-            { Id: 'p5', ProjectName: 'Sales Perf Dashboard', PlatformId: 'P02', URL: 'https://cbi.exellerator.io/dashboard/default', Username: '', Password: '' },
-            { Id: 'p6', ProjectName: 'Mobile Money', PlatformId: 'P01', URL: 'http://scmm.eaciit.com/dashboard/default', Username: '', Password: '' },
-            { Id: 'p7', ProjectName: 'TWIST', PlatformId: 'P02', URL: 'https://twist.exellerator.io/', Username: '', Password: '' },
-            { Id: 'p8', ProjectName: 'FMI', PlatformId: 'P02', URL: 'https://fmi.exellerator.io', Username: '', Password: '' },
-            { Id: 'p9', ProjectName: 'FMI Dev', PlatformId: 'P04', URL: 'http://fmidev.eaciitapp.com', Username: '', Password: '' },
-        ]
-        var data = _.sortBy(raw.map(function (d) {
+        var data = _.sortBy(res.Data.map(function (d) {
             var platform = dashboard.dataMasterPlatform().find(function (e) { 
                 return e.Id == d.PlatformId
             })
