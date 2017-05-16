@@ -6,8 +6,6 @@ dashboard.getMasterPlatformData = function (callback) {
     viewModel.isLoading(true)
 
     ajaxPost('/web/dashboard/getmasterplatform', {}, function (res) {
-        viewModel.isLoading(false)
-
         if (res.Status !== 'OK') {
             swal("Login Failed!", res.Message, "error")
             return
@@ -26,8 +24,6 @@ dashboard.getPageData = function (callback) {
     viewModel.isLoading(true)
 
     ajaxPost('/web/dashboard/getpage', {}, function (res) {
-        viewModel.isLoading(false)
-
         if (res.Status !== 'OK') {
             swal("Login Failed!", res.Message, "error")
             return
@@ -105,7 +101,10 @@ dashboard.refresh = function () {
 $(function () {
     dashboard.getMasterPlatformData(function () {
         dashboard.getPageData(function () {
-            dashboard.refresh()
+            setTimeout(function () {
+                viewModel.isLoading(false)
+                dashboard.refresh()
+            }, 1000)
         })
     })
 })
