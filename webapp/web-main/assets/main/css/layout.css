@@ -14,7 +14,7 @@ body {
 }
 *, *:before, *:after {
     box-sizing: inherit;
-    text-rendering: optimizeLegibility;
+    // text-rendering: optimizeLegibility;
 }
 
 .container-fluid {
