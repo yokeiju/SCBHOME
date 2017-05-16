@@ -1,4 +1,5 @@
 var dashboard = {};
+viewModel.dashboard = dashboard
 
 dashboard.showrow = function(){
 	$("#panel1").show();

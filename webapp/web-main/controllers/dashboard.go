@@ -14,6 +14,12 @@ func (c *DashboardController) Index(k *knot.WebContext) interface{} {
 	return c.GetBaseData(k)
 }
 
+func (c *DashboardController) Master(k *knot.WebContext) interface{} {
+	c.SetupForHTML(k)
+
+	return c.GetBaseData(k)
+}
+
 func (c *DashboardController) GetData(k *knot.WebContext) interface{} {
 	c.SetupForAJAX(k)
 

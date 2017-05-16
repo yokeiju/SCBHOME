@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html manifest="/web/static/main/manifest.appcache">
+<html>
 <head>
+    <!--  manifest="/web/static/main/manifest.appcache" -->
     {{template "_head.html"}}
 </head>
-<body>
-    <div class="container-fluid layout-container">
+<body class="close-sidebar">
+    <div class="layout-sidebar">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#" class="toggler">
+                    <i class="fa fa-lg fa-bars"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/web/dashboard/master">
+                    <i class="fa fa-database"></i>
+                    &nbsp;
+                    <span>Master</span>
+                </a>
+            </li>
+            <li>
+                <a href="/web/auth/dologout">
+                    <i class="fa fa-sign-out"></i>
+                    &nbsp;
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layout-header">
+        <div class="navbar-header">
+            <a class="navbar-brand" target="_blank" href="/">
+                <img src="http://scb-rb.eaciitapp.com/web-rb/static/img/site-logo.png">
+            </a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" class="app-title">EACIIT SCB Link Homepage</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="display: none;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-lg fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layout-container">
         <div class="layout-content" data-bind="with: viewModel">
             {{.Content}}
 
@@ -13,7 +66,6 @@
         </div>
     </div>
 
-    {{template "_top.html"}}
     {{template "_loader.html"}}
 
     <script>

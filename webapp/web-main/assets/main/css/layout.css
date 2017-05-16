@@ -14,6 +14,7 @@ body {
 }
 *, *:before, *:after {
     box-sizing: inherit;
+    text-rendering: optimizeLegibility;
 }
 
 .container-fluid {
@@ -60,4 +61,103 @@ a:focus, a:hover {
 }
 .loader .sk-cube-grid .sk-cube {
     background-color: #f1f1f1;
+}
+
+body.close-sidebar .layout-sidebar {
+    width: 40px;
+}
+body.close-sidebar .layout-sidebar .navbar-nav li a:not(.toggler) span {
+    opacity: 0;
+}
+body.close-sidebar .layout-header {
+    margin-left: 40px;
+}
+body.close-sidebar .layout-container {
+    margin-left: 40px;
+}
+body.page-login .layout-container {
+    margin-left: 0px;
+}
+
+.layout-sidebar {
+    z-index: 7;
+    width: 200px;
+    background-color: #23313e;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    color: white;
+    transition: .2s ease-in-out width;
+}
+.layout-sidebar .navbar-nav {
+    width: 100%;
+}
+.layout-sidebar .navbar-nav li {
+    float: none;
+    overflow: hidden;
+}
+.layout-sidebar .navbar-nav li:first-child {
+    border-bottom: 1px solid #293846;
+    padding: 5px 0px 4px;
+}
+.layout-sidebar .navbar-nav li a.toggler {
+    display: inline-block;
+    padding: 5px 8px;
+    margin: 5px 5px;
+    border-radius: 3px;
+    color: white;
+}
+.layout-sidebar .navbar-nav li a:not(.toggler) {
+    padding: 8px 13px;
+    width: 200px;
+    transition: .1s ease-in-out background-color;
+}
+.layout-sidebar .navbar-nav li a:not(.toggler) * {
+    display: block;
+    float: left;
+}
+.layout-sidebar .navbar-nav li a:not(.toggler) i {
+    margin-top: 4px;
+    margin-right: 10px
+}
+.layout-sidebar .navbar-nav li a:not(.toggler) span {
+    transition: .1s ease-in-out opacity;
+}
+.layout-sidebar .navbar-nav li a:focus {
+    background-color: inherit;
+}
+.layout-sidebar .navbar-nav li a:hover {
+    background-color: #344554;
+}
+
+.layout-header {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+    background-color: #293846;
+    color: #eaeaea;
+    margin-left: 200px;
+    transition: .2s ease-in-out margin-left;
+}
+.layout-header .navbar-brand {
+    padding: 0px 9px 0px 35px;
+    margin: 7px 0px 8px;
+    border-right: 1px solid #354656;
+    height: auto;
+}
+.layout-header .navbar-brand img {
+    height: 34px;
+}
+.layout-header .navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
+}
+.layout-header .app-title {
+    pointer-events: none;
+    font-size: 18px;
+}
+.layout-header .nav> li> a:focus, .layout-header .nav> li> a:hover {
+    background-color: #364756;
+}
+.layout-container {
+    margin-left: 200px;
+    transition: .2s ease-in-out margin-left;
 }

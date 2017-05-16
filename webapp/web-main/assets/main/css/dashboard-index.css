@@ -1,30 +1,9 @@
-.titlehead {
-    background: #333f50; 
-    font-size: 24px;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 0px;
-    font-family: "Helvetica Neue", "Segoe UI", Arial;
-}
-
-.confbutton {
-    margin-top: 5px;
-    margin-right: 10px;
-}
-
-.container-fluid {
-    padding: 0px;
-}
-
 .top-margin{
     margin-top: 10px;
 }
 
 .top-margin-panel1{
 	margin-top: 30px;
-}
-.filtertop{
-    text-align: center;
 }
 
 .filter {
@@ -34,11 +13,6 @@
     border-style: none;
     background: #cdcdcd;
     padding: 5px;
-}
-
-.leftposition {
-    text-align: right;
-    padding-right: 0px;
 }
 
 .box {

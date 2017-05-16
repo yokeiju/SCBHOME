@@ -49,3 +49,17 @@ viewModel.ajaxPost = function (url, data, callbackOK, callbackNope) {
 
 window.normalizeData = viewModel.normalizeData
 window.ajaxPost = viewModel.ajaxPost 
+
+viewModel.registerSidebarToggle = function () {
+    $('.layout-sidebar .navbar-nav li a').on('click', function () {
+        if ($('body').hasClass('close-sidebar')) {
+            $('body').removeClass('close-sidebar')
+        } else {
+            $('body').addClass('close-sidebar')
+        }
+    })
+}
+
+$(function () {
+    viewModel.registerSidebarToggle()
+})
