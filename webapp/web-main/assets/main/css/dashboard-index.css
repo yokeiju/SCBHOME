@@ -16,11 +16,8 @@
 }
 
 .box {
-    /*width: 23%;*/
-     
     border: none;
     padding: 25px;
-    /*margin:10px;*/
     text-align: center;
     color: #ffffff;
 }
@@ -30,12 +27,18 @@
     border: none;
     padding: 25px;
     margin-top: 10px;
-    /*margin:10px 10px 10px 10px;*/
     text-align: center;
     color: #ffffff;
     float:left;
     font-size: 20px;
 }
+.box2:nth-child(even) {
+    margin-left: 1%;
+}
+.box2:nth-child(odd) {
+    margin-right: 1%;
+}
+
 .box-left{
 	margin-right: 1%;
 }
