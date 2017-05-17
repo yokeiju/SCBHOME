@@ -29,7 +29,21 @@ dashboard.getMasterPlatformData = function (callback) {
     })
 }
 
+dashboard.searchKeyword = ko.observable('')
 dashboard.dataPage = ko.observableArray([])
+dashboard.dataPageFiltered = ko.computed(function () {
+    if (dashboard.searchKeyword() == '') {
+        return dashboard.dataPage()
+    }
+
+    return dashboard.dataPage().filter(function (d) {
+        var keyword = _.lowerCase(dashboard.searchKeyword())
+        var cond1 = _.lowerCase(d.ProjectName).indexOf(keyword) > -1
+        var cond2 = _.lowerCase(d.PlatformName).indexOf(keyword) > -1
+
+        return cond1 || cond2
+    })
+}, dashboard)
 dashboard.getPageData = function (callback) {
     viewModel.isLoading(true)
 
@@ -60,6 +74,13 @@ dashboard.getPageData = function (callback) {
         viewModel.isLoading(false)
         swal("Login Failed!", "Unknown error, please try again", "error")
     })
+}
+
+dashboard.registerSearchEvent = function () {
+    $('.search-box .search').on('keyup', _.debounce(function () {
+        var text = $(this).val()
+        dashboard.searchKeyword(text)
+    }, 300))
 }
 
 dashboard.open = function (url) {
@@ -149,6 +170,7 @@ $(function() {
 
 
 $(function () {
+    dashboard.registerSearchEvent()
     dashboard.getMasterPlatformData(function () {
         dashboard.getPageData()
     })

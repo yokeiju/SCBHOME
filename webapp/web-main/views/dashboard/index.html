@@ -2,6 +2,13 @@
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/dashboard-index.css" }}" />
 
 <div class="col-md-12 switcher">
+	<div class="input-group input-group-lg search-box">
+		<span class="input-group-addon">
+			<i class="fa fa-search"></i>
+		</span>
+		<input type="text" class="search" placeholder="Search here ...">
+	</div>
+	
 	<div class="pull-right">
 	 	<button class="btn btn-sm btn-gray" data-bind="click: dashboard.showRow">
 	 		<span class="fa fa-lg fa-th"></span>
@@ -12,7 +19,7 @@
 	</div>
 </div>
 
-<div id="panel1" class="col-md-12" data-bind="foreach: dashboard.dataPage">
+<div id="panel1" class="col-md-12" data-bind="foreach: dashboard.dataPageFiltered">
 	<div class="col-md-4 top-margin">
 		<div class="box" data-bind="click: dashboard.open(URL)">
 			<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + Cover + ')' }"></div>
