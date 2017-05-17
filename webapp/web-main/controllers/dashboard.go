@@ -87,15 +87,22 @@ func (c *DashboardController) SavePage(k *knot.WebContext) interface{} {
 func (c *DashboardController) DeletePage(k *knot.WebContext) interface{} {
 	c.SetupForAJAX(k)
 
-	payload := new(models.PageModel)
+	payload := struct {
+		Ids []string
+	}{}
 	err := k.GetPayload(&payload)
 	if err != nil {
 		return c.SetResultError(err.Error(), nil)
 	}
 
-	err = c.Ctx.Delete(payload)
-	if err != nil {
-		return c.SetResultError(err.Error(), nil)
+	for _, eachId := range payload.Ids {
+		eachModel := new(models.PageModel)
+		eachModel.Id = eachId
+
+		err = c.Ctx.Delete(eachModel)
+		if err != nil {
+			return c.SetResultError(err.Error(), nil)
+		}
 	}
 
 	return c.SetResultOK(nil)
