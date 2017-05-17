@@ -5,7 +5,7 @@
 .switcher {
     position: relative;
     text-align: center;
-    margin: 10px 0px;
+    margin: 0px 0px 5px;
 }
 .switcher .pull-right {
     position: absolute;
@@ -16,8 +16,18 @@
     padding: 11px 12px 9px;
     height: 40px;
     border-radius: 6px;
+
+    border-color: #ececec;
+    background-color: #ececec;
+    color: #697c8d;
 }
-.switcher .btn.focus, .switcher .btn:focus, .switcher .btn:hover, .switcher .btn.active {
+.switcher .pull-right .btn.focus, .switcher .btn:focus, .switcher .btn:hover {
+    border-color: #c5c5c5;
+}
+.switcher .pull-right .btn.active {
+    padding: 11px 12px 9px;
+    height: 40px;
+    border-radius: 6px;
     color: white;
     background-color: #485f75;
     border-color: #334352;
