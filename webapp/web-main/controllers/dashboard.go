@@ -3,7 +3,7 @@ package controllers
 import (
 	"eaciit/scbhome/webapp/web-main/models"
 	"github.com/eaciit/knot/knot.v1"
-	tk "github.com/eaciit/toolkit"
+	// tk "github.com/eaciit/toolkit"
 )
 
 type DashboardController struct {
@@ -48,20 +48,6 @@ func (c *DashboardController) GetPage(k *knot.WebContext) interface{} {
 	err = csr.Fetch(&data, 0, true)
 	if err != nil {
 		return c.SetResultError(err.Error(), nil)
-	}
-
-	if len(data) == 0 {
-		data = []models.PageModel{
-			{Id: "p1", ProjectName: "OCIR", PlatformId: "P01", URL: "scbocir-dev.eaciit.com/live/dashboard/default", Cover: "adan-guerrero-131738.jpg", Username: "", Password: ""},
-			{Id: "p2", ProjectName: "IKEA", PlatformId: "P01", URL: "scbikea.eaciit.com/dashboard/default", Cover: "benjamin-child-17946.jpg", Username: "", Password: ""},
-			{Id: "p3", ProjectName: "Super Connect 5", PlatformId: "P01", URL: "http://www.superconnect5.com/admin/dashboard/default", Cover: "benjamin-child-90768.jpg", Username: "", Password: ""},
-			{Id: "p4", ProjectName: "BEF", PlatformId: "P01", URL: "http://scb-bef.eaciitapp.com/dashboard/default", Cover: "breather-181294.jpg", Username: "", Password: ""},
-			{Id: "p5", ProjectName: "Sales Perf Dashboard", PlatformId: "P02", URL: "https://cbi.exellerator.io/dashboard/default", Cover: "jeff-sheldon-3231.jpg", Username: "", Password: ""},
-			{Id: "p6", ProjectName: "Mobile Money", PlatformId: "P01", URL: "http://scmm.eaciit.com/dashboard/default", Cover: "michal-kubalczyk-257107.jpg", Username: "", Password: ""},
-			{Id: "p7", ProjectName: "TWIST", PlatformId: "P02", URL: "https://twist.exellerator.io/", Cover: "miguel-carraca-131178.jpg", Username: "", Password: ""},
-			{Id: "p8", ProjectName: "FMI", PlatformId: "P02", URL: "https://fmi.exellerator.io", Cover: "sean-pollock-203658.jpg", Username: "", Password: ""},
-			{Id: "p9", ProjectName: "FMI Dev", PlatformId: "P04", URL: "http://fmidev.eaciitapp.com", Cover: "sebastian-grochowicz-249102.jpg", Username: "", Password: ""},
-		}
 	}
 
 	return c.SetResultOK(data)
@@ -132,30 +118,99 @@ func (c *DashboardController) GetMasterPlatform(k *knot.WebContext) interface{} 
 	return c.SetResultOK(data)
 }
 
-func (c *DashboardController) InsertMasterPlatform(k *knot.WebContext) interface{} {
+func (c *DashboardController) InsertPredefinedData(k *knot.WebContext) interface{} {
 	c.SetupForAJAX(k)
 
-	platforms := []models.MasterPlatformModel{
-		{Id: "P01", Name: "EACIIT App", Color: "#e67e22"},
-		{Id: "P02", Name: "Exellerator", Color: "#2980b9"},
-		{Id: "P03", Name: "UAT", Color: "#27ae60"},
-		{Id: "P04", Name: "Development", Color: "#666699"},
-	}
+	// platforms
+	err := (func() error {
+		platforms := []models.MasterPlatformModel{
+			{Id: "P01", Name: "EACIIT App", Color: "#e67e22"},
+			{Id: "P02", Name: "Exellerator", Color: "#03A9F4"},
+			{Id: "P03", Name: "UAT", Color: "#27ae60"},
+			{Id: "P04", Name: "Development", Color: "#d066e2"}}
 
-	queryInsert := c.Ctx.Connection.
-		NewQuery().
-		SetConfig("multiexec", true).
-		From(new(models.MasterPlatformModel).TableName()).
-		Save()
-	if queryInsert != nil {
-		defer queryInsert.Close()
-	}
-
-	for _, each := range platforms {
-		err := queryInsert.Exec(tk.M{}.Set("data", each))
-		if err != nil {
-			return c.SetResultError(err.Error(), nil)
+		for _, each := range platforms {
+			err := c.Ctx.Save(&each)
+			if err != nil {
+				return err
+			}
 		}
+
+		return nil
+	})()
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	// pages
+	err = (func() error {
+		pages := []models.PageModel{
+			{
+				Id:          "p4",
+				ProjectName: "BEF",
+				PlatformId:  "P01",
+				URL:         "http://scb-bef.eaciitapp.com/dashboard/default",
+				Cover:       "breather-181294.jpg"},
+			{
+				Id:          "p8",
+				ProjectName: "FMI",
+				PlatformId:  "P02",
+				URL:         "https://fmi.exellerator.io",
+				Cover:       "sean-pollock-203658.jpg"},
+			{
+				Id:          "p9",
+				ProjectName: "FMI Dev",
+				PlatformId:  "P04",
+				URL:         "http://fmidev.eaciitapp.com",
+				Cover:       "sebastian-grochowicz-249102.jpg"},
+			{
+				Id:          "p2",
+				ProjectName: "IKEA",
+				PlatformId:  "P01",
+				URL:         "http://scbikea.eaciit.com/dashboard/default",
+				Cover:       "benjamin-child-17946.jpg"},
+			{
+				Id:          "p6",
+				ProjectName: "Mobile Money",
+				PlatformId:  "P01",
+				URL:         "http://scmm.eaciit.com/dashboard/default",
+				Cover:       "michal-kubalczyk-257107.jpg"},
+			{
+				Id:          "p1",
+				ProjectName: "OCIR",
+				PlatformId:  "P01",
+				URL:         "http://scbocir-dev.eaciit.com/live/dashboard/default",
+				Cover:       "adan-guerrero-131738.jpg"},
+			{
+				Id:          "p5",
+				ProjectName: "Sales Perf Dashboard",
+				PlatformId:  "P02",
+				URL:         "https://cbi.exellerator.io/dashboard/default",
+				Cover:       "jeff-sheldon-3231.jpg"},
+			{
+				Id:          "p3",
+				ProjectName: "Super Connect 5",
+				PlatformId:  "P01",
+				URL:         "http://www.superconnect5.com/admin/dashboard/default",
+				Cover:       "benjamin-child-90768.jpg"},
+			{
+				Id:          "p7",
+				ProjectName: "TWIST",
+				PlatformId:  "P02",
+				URL:         "https://twist.exellerator.io/",
+				Cover:       "miguel-carraca-131178.jpg"}}
+
+		for _, each := range pages {
+			err := c.Ctx.Save(&each)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})()
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
 	}
 
 	return c.SetResultOK(nil)

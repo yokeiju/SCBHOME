@@ -40,15 +40,15 @@
 .switcher .search-box .input-group-addon {
     padding: 7px 13px;
     height: 40px;
-    border-color: #293846;
-    background-color: #293846;
-    color: white;
+    border-color: #ececec;
+    background-color: #ececec;
+    color: #687b8c;
 }
 .switcher .search-box input {
-    border: 1px solid #293846;
+    border: 1px solid #ececec;
     padding: 10px 13px;
     border-radius: 5px;
-    background-color: #fbfbfb;
+    background-color: #ffffff;
     height: 40px;
     font-size: 15px;
     border-top-left-radius: 0px;
