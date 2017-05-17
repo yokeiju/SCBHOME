@@ -2,12 +2,12 @@ var dashboard = {}
 viewModel.dashboard = dashboard
 
 dashboard.dataMasterPlatform = ko.observableArray([])
-dashboard.checkeddata = ko.observableArray([])
-dashboard.inputmaster = {
-    Id:ko.observable(""),
-    ProjectName:ko.observable(""),
-    PlatformId:ko.observable(""),
-    URL:ko.observable(""),
+dashboard.checkedData = ko.observableArray([])
+dashboard.inputMaster = {
+    Id: ko.observable(""),
+    ProjectName: ko.observable(""),
+    PlatformId: ko.observable(""),
+    URL: ko.observable(""),
 }
 
 dashboard.getMasterPlatformData = function (callback) {
@@ -15,7 +15,7 @@ dashboard.getMasterPlatformData = function (callback) {
 
     ajaxPost('/web/dashboard/getmasterplatform', {}, function (res) {
         if (res.Status !== 'OK') {
-            swal("Login Failed!", res.Message, "error")
+            swal("Error!", res.Message, "error")
             return
         }
 
@@ -23,7 +23,7 @@ dashboard.getMasterPlatformData = function (callback) {
         callback()
     }, function () {
         viewModel.isLoading(false)
-        swal("Login Failed!", "Unknown error, please try again", "error")
+        swal("Error!", "Unknown error, please try again", "error")
     })
 }
 
@@ -33,7 +33,7 @@ dashboard.getPageData = function (callback) {
 
     ajaxPost('/web/dashboard/getpage', {}, function (res) {
         if (res.Status !== 'OK') {
-            swal("Login Failed!", res.Message, "error")
+            swal("Error!", res.Message, "error")
             return
         }
 
@@ -57,7 +57,7 @@ dashboard.getPageData = function (callback) {
         callback()
     }, function () {
         viewModel.isLoading(false)
-        swal("Login Failed!", "Unknown error, please try again", "error")
+        swal("Error!", "Unknown error, please try again", "error")
     })
 }
 
@@ -66,7 +66,8 @@ dashboard.refresh = function () {
 
     if (typeof $('.grid').data('kendoGrid') !== 'undefined') {
         $('.grid').data('kendoGrid').setDataSource(new kendo.data.DataSource({
-            data: data
+            data: data,
+            pageSize: 100
         }))
         return
     }
@@ -97,30 +98,30 @@ dashboard.refresh = function () {
 
 dashboard.listcheck = function(idmaster){
     if($('#checkbox-'+idmaster).is(':checked')){
-        dashboard.checkeddata.push(idmaster)
+        dashboard.checkedData.push(idmaster)
     } else {
-        var index = dashboard.checkeddata().indexOf(idmaster);
-        dashboard.checkeddata().splice(index, 1);
+        var index = dashboard.checkedData().indexOf(idmaster);
+        dashboard.checkedData().splice(index, 1);
     }
 }
 
 dashboard.editMaster = function(){
-    if(dashboard.checkeddata().length == 1){
+    if(dashboard.checkedData().length == 1){
         $("#TitleModal").html("Edit");
         $("#TitleButtonModal").html("Update");
-        var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkeddata()[0]});
+        var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
         $('#inputMaster').modal('show');
-        dashboard.inputmaster.Id(tempdata.Id);
-        dashboard.inputmaster.ProjectName(tempdata.ProjectName);
-        dashboard.inputmaster.PlatformId(tempdata.PlatformId);
-        dashboard.inputmaster.URL(tempdata.URL);
+        dashboard.inputMaster.Id(tempdata.Id);
+        dashboard.inputMaster.ProjectName(tempdata.ProjectName);
+        dashboard.inputMaster.PlatformId(tempdata.PlatformId);
+        dashboard.inputMaster.URL(tempdata.URL);
     } else {
          swal("Error!", "Please choose only one !!!", "error");
     }   
 }
 
 dashboard.deleteMaster = function(){
-    if(dashboard.checkeddata().length != 0){
+    if (dashboard.checkedData().length != 0) {
         swal({
             title: "Are you sure?",
             text: "You want to Deleted this Data!",
@@ -129,23 +130,20 @@ dashboard.deleteMaster = function(){
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Yes, delete it!",
             closeOnConfirm: false
-        },
-        function(){
-            var url = "/web/dashboard/deletepage";
-
-            var param = {
-            Ids: dashboard.checkeddata(),
-            }
-
-            ajaxPost(url, param, function(data) {
-                if (data.Status == "OK") {            
-                    dashboard.checkeddata([]);
-                    dashboard.global();
-                    swal("Deleted!", "Your Data has been deleted.", "success");
-                } else {
-                    swal("Error!", data.Message, "error");
-                }
-            });           
+        }, function () {
+            setTimeout(function () {
+                var url = "/web/dashboard/deletepage";
+                var param = { Ids: dashboard.checkedData() }
+                ajaxPost(url, param, function(data) {
+                    if (data.Status == "OK") {            
+                        dashboard.checkedData([]);
+                        dashboard.global();
+                        swal("Deleted!", "Your Data has been deleted.", "success");
+                    } else {
+                        swal("Error!", data.Message, "error");
+                    }
+                });
+            }, 400)
         });
     }
 }
@@ -154,38 +152,25 @@ dashboard.saveMaster = function() {
     viewModel.isLoading(true);
     var url = "/web/dashboard/savepage";
 
-    if (dashboard.inputmaster.Id() == "") {
-        var idmaster = "";
-    } else {
-        var idmaster = dashboard.inputmaster.Id();
-    }
-
-    var param = {
-        Id: idmaster,
-        ProjectName: dashboard.inputmaster.ProjectName(),
-        PlatformId: dashboard.inputmaster.PlatformId(),
-        URL: dashboard.inputmaster.URL(),
-    }
-
+    var param = ko.mapping.toJS(dashboard.inputMaster)
     ajaxPost(url, param, function(data) {
         if (data.Status == "OK") {
             swal("Saved!", "Your file has been successfully Update.", "success");
             dashboard.reset();
-            dashboard.checkeddata([]);
+            dashboard.checkedData([]);
             dashboard.global();
             $('#inputMaster').modal('hide');
         } else {
             swal("Error!", data.Message, "error");
         }
-
     });
 }
 
 dashboard.reset = function(){
-    dashboard.inputmaster.Id("");
-    dashboard.inputmaster.ProjectName("");
-    dashboard.inputmaster.PlatformId("");
-    dashboard.inputmaster.URL("");
+    dashboard.inputMaster.Id("");
+    dashboard.inputMaster.ProjectName("");
+    dashboard.inputMaster.PlatformId("");
+    dashboard.inputMaster.URL("");
     $("#platform").val("").data("kendoDropDownList").text("");
     $("#TitleModal").html("Add Master");
     $("#TitleButtonModal").html("Save");

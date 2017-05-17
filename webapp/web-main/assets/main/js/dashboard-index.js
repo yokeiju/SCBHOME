@@ -128,6 +128,18 @@ dashboard.open = function (url) {
         window.open(url, '_blank')
     }
 }
+dashboard.openById = function (obj) {
+    var id = $(obj).attr('data-id')
+    var row = dashboard.dataPage().find(function (d) {
+        return d.Id === id
+    })
+
+    if (row === undefined) {
+        return
+    }
+
+    dashboard.open(row.URL)()
+}
 
 $(function () {
     dashboard.registerSearchEvent()
