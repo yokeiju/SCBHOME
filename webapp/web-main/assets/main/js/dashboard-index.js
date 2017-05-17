@@ -1,12 +1,12 @@
 var dashboard = {};
 viewModel.dashboard = dashboard
 
-dashboard.showrow = function(){
+dashboard.showRow = function(){
     $("#panel1").show();
     $("#panel2").hide();    
 };
 
-dashboard.showlist = function(){
+dashboard.showList = function(){
     $("#panel1").hide();
     $("#panel2").show();    
 }
@@ -64,7 +64,7 @@ dashboard.getPageData = function (callback) {
 
 dashboard.open = function (url) {
     return function () {
-        location.href = url
+        window.open(url, '_blank')
     }
 }
 
