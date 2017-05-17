@@ -44,6 +44,21 @@ dashboard.dataPageFiltered = ko.computed(function () {
         return cond1 || cond2
     })
 }, dashboard)
+dashboard.dataPageBoxFiltered = ko.computed(function () {
+    var data = dashboard.dataPageFiltered()
+    var result = []
+    
+    _.each(_.groupBy(data, "ProjectName"), function (v, i) {
+        datatmp = []
+        _.each(_.groupBy(v, "Color"), function(vv, ii) {
+            datatmp.push(vv[0])
+        })
+        result.push({"data": datatmp})
+    })
+
+    return result
+})
+
 dashboard.getPageData = function (callback) {
     viewModel.isLoading(true)
 
@@ -88,86 +103,6 @@ dashboard.open = function (url) {
         window.open(url, '_blank')
     }
 }
-
-dashboard.data = [
-    {
-        "TitleProject":"Project 1",
-        "SubProject":"Exellerator",
-        "LinkUrl":"#",
-        "ColorSubProject":"#00b0f0"
-    },
-    {
-        "TitleProject":"Project 1",
-        "SubProject":"UAT",
-        "LinkUrl":"#",
-        "ColorSubProject":"#23c6c8"
-    },
-    {
-        "TitleProject":"Project 1",
-        "SubProject":"EACIIT",
-        "LinkUrl":"#",
-        "ColorSubProject":"#ff9966"
-    },
-    {
-        "TitleProject":"Project 1",
-        "SubProject":"Development",
-        "LinkUrl":"#",
-        "ColorSubProject":"#666699"
-    },
-        {
-        "TitleProject":"Project 2",
-        "SubProject":"Exellerator",
-        "LinkUrl":"#",
-        "ColorSubProject":"#00b0f0"
-    },
-    {
-        "TitleProject":"Project 2",
-        "SubProject":"EACIIT",
-        "LinkUrl":"#",
-        "ColorSubProject":"#ff9966"
-    },
-    {
-        "TitleProject":"Project 2",
-        "SubProject":"Development",
-        "LinkUrl":"#",
-        "ColorSubProject":"#666699"
-    },
-        {
-        "TitleProject":"Project 3",
-        "SubProject":"Exellerator",
-        "LinkUrl":"#",
-        "ColorSubProject":"#00b0f0"
-    },
-    {
-        "TitleProject":"Project 3",
-        "SubProject":"EACIIT",
-        "LinkUrl":"#",
-        "ColorSubProject":"#ff9966"
-    },
-    {
-        "TitleProject":"Project 3",
-        "SubProject":"Development",
-        "LinkUrl":"#",
-        "ColorSubProject":"#666699"
-    },
-
-]
-
-data = dashboard.data
-databaru = [];
-_.each(_.groupBy(data, "TitleProject"), function (v, i) {
-    datatmp = []
-    _.each(_.groupBy(v, "ColorSubProject"), function(vv,ii){
-        datatmp.push(vv[0])
-    })
-    databaru.push({"data": datatmp})
-})
-
-$(function() {
-    $("#panel1").show();
-    $("#panel2").hide();
-});
-
 
 $(function () {
     dashboard.registerSearchEvent()
