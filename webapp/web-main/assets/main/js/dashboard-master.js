@@ -2,11 +2,12 @@ var dashboard = {}
 viewModel.dashboard = dashboard
 
 dashboard.dataMasterPlatform = ko.observableArray([])
-
+dashboard.checkeddata = ko.observableArray([])
 dashboard.inputmaster = {
-    projectname:ko.observable(""),
-    platformid:ko.observable(""),
-    url:ko.observable(""),
+    Id:ko.observable(""),
+    ProjectName:ko.observable(""),
+    PlatformId:ko.observable(""),
+    URL:ko.observable(""),
 }
 
 dashboard.getMasterPlatformData = function (callback) {
@@ -88,26 +89,118 @@ dashboard.refresh = function () {
                 return '<a target="_blank" href="' + d.URL + '" class="notify-link label label-success"><i class="fa fa-share-square"></i>&nbsp; Open in New Tab</a>'
             }, attributes: { class: 'align-center' } },
             { title: '&nbsp;', width: 30, template: function (d) {
-                return '<input type="checkbox" />'
+                return '<input class="checkboxgrid" type="checkbox" id="checkbox-'+d.Id+'" onclick="dashboard.listcheck(\''+d.Id+'\')"/>'
             }, attributes: { class: 'align-center' } },
         ]
     })
 }
 
-dashboard.addnewmaster = function(){
-    dashboard.inputmaster.projectname("");
-    dashboard.inputmaster.platformid("");
-    dashboard.inputmaster.url("");
+dashboard.listcheck = function(idmaster){
+    if($('#checkbox-'+idmaster).is(':checked')){
+        dashboard.checkeddata.push(idmaster)
+    } else {
+        var index = dashboard.checkeddata().indexOf(idmaster);
+        dashboard.checkeddata().splice(index, 1);
+    }
 }
 
-$(function () {
-    dashboard.getMasterPlatformData(function () {
-        dashboard.getPageData(function () {
-            setTimeout(function () {
+dashboard.editMaster = function(){
+    if(dashboard.checkeddata().length == 1){
+        $("#TitleModal").html("Edit");
+        $("#TitleButtonModal").html("Update");
+        var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkeddata()[0]});
+        $('#inputMaster').modal('show');
+        dashboard.inputmaster.Id(tempdata.Id);
+        dashboard.inputmaster.ProjectName(tempdata.ProjectName);
+        dashboard.inputmaster.PlatformId(tempdata.PlatformId);
+        dashboard.inputmaster.URL(tempdata.URL);
+    } else {
+         swal("Error!", "Please choose only one !!!", "error");
+    }   
+}
+
+dashboard.deleteMaster = function(){
+    if(dashboard.checkeddata().length != 0){
+        swal({
+            title: "Are you sure?",
+            text: "You want to Deleted this Data!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function(){
+            var url = "/web/dashboard/deletepage";
+
+            var param = {
+            Ids: dashboard.checkeddata(),
+            }
+
+            ajaxPost(url, param, function(data) {
+                if (data.Status == "OK") {            
+                    dashboard.checkeddata([]);
+                    dashboard.global();
+                    swal("Deleted!", "Your Data has been deleted.", "success");
+                } else {
+                    swal("Error!", data.Message, "error");
+                }
+            });           
+        });
+    }
+}
+
+dashboard.saveMaster = function() {
+    viewModel.isLoading(true);
+    var url = "/web/dashboard/savepage";
+
+    if (dashboard.inputmaster.Id() == "") {
+        var idmaster = "";
+    } else {
+        var idmaster = dashboard.inputmaster.Id();
+    }
+
+    var param = {
+        Id: idmaster,
+        ProjectName: dashboard.inputmaster.ProjectName(),
+        PlatformId: dashboard.inputmaster.PlatformId(),
+        URL: dashboard.inputmaster.URL(),
+    }
+
+    ajaxPost(url, param, function(data) {
+        if (data.Status == "OK") {
+            swal("Saved!", "Your file has been successfully Update.", "success");
+            dashboard.reset();
+            dashboard.checkeddata([]);
+            dashboard.global();
+            $('#inputMaster').modal('hide');
+        } else {
+            swal("Error!", data.Message, "error");
+        }
+
+    });
+}
+
+dashboard.reset = function(){
+    dashboard.inputmaster.Id("");
+    dashboard.inputmaster.ProjectName("");
+    dashboard.inputmaster.PlatformId("");
+    dashboard.inputmaster.URL("");
+    $("#platform").val("").data("kendoDropDownList").text("");
+    $("#TitleModal").html("Add Master");
+    $("#TitleButtonModal").html("Save");
+}
+
+dashboard.global = function(){
+    dashboard.getMasterPlatformData(function() {
+        dashboard.getPageData(function() {
+            setTimeout(function() {
                 viewModel.isLoading(false)
                 dashboard.refresh()
             }, 1000)
         })
     })
-
+}
+$(function () {
+    dashboard.global();
 })
