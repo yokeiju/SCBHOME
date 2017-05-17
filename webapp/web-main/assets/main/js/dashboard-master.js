@@ -105,47 +105,51 @@ dashboard.listcheck = function(idmaster){
     }
 }
 
-dashboard.editMaster = function(){
-    if(dashboard.checkedData().length == 1){
-        $("#TitleModal").html("Edit");
-        $("#TitleButtonModal").html("Update");
-        var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
-        $('#inputMaster').modal('show');
-        dashboard.inputMaster.Id(tempdata.Id);
-        dashboard.inputMaster.ProjectName(tempdata.ProjectName);
-        dashboard.inputMaster.PlatformId(tempdata.PlatformId);
-        dashboard.inputMaster.URL(tempdata.URL);
-    } else {
-         swal("Error!", "Please choose only one !!!", "error");
-    }   
+dashboard.editMaster = function () {
+    if (dashboard.checkedData().length == 0 || dashboard.checkedData().length > 1) {
+        swal("Error!", "Please choose one row", "error");
+        return
+    }
+
+    $("#TitleModal").html("Edit");
+    $("#TitleButtonModal").html("Update");
+    var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
+    $('#inputMaster').modal('show');
+    dashboard.inputMaster.Id(tempdata.Id);
+    dashboard.inputMaster.ProjectName(tempdata.ProjectName);
+    dashboard.inputMaster.PlatformId(tempdata.PlatformId);
+    dashboard.inputMaster.URL(tempdata.URL);
 }
 
 dashboard.deleteMaster = function(){
-    if (dashboard.checkedData().length != 0) {
-        swal({
-            title: "Are you sure?",
-            text: "You want to Deleted this Data!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        }, function () {
-            setTimeout(function () {
-                var url = "/web/dashboard/deletepage";
-                var param = { Ids: dashboard.checkedData() }
-                ajaxPost(url, param, function(data) {
-                    if (data.Status == "OK") {            
-                        dashboard.checkedData([]);
-                        dashboard.global();
-                        swal("Deleted!", "Your Data has been deleted.", "success");
-                    } else {
-                        swal("Error!", data.Message, "error");
-                    }
-                });
-            }, 400)
-        });
+    if (dashboard.checkedData().length == 0) {
+        swal("Error!", "Please choose at least one row", "error");
+        return
     }
+
+    swal({
+        title: "Caution",
+        text: "Are you sure want to delete this Data!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes",
+        closeOnConfirm: false
+    }, function () {
+        setTimeout(function () {
+            var url = "/web/dashboard/deletepage";
+            var param = { Ids: dashboard.checkedData() }
+            ajaxPost(url, param, function(data) {
+                if (data.Status == "OK") {            
+                    dashboard.checkedData([]);
+                    dashboard.global();
+                    swal("Deleted!", "Your Data has been deleted.", "success");
+                } else {
+                    swal("Error!", data.Message, "error");
+                }
+            });
+        }, 400)
+    });
 }
 
 dashboard.saveMaster = function() {

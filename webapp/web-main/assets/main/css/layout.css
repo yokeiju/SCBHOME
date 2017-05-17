@@ -23,6 +23,11 @@ body {
     padding-right: 0;
 }
 
+.no-padding-side {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 a {
     color: inherit;
 }
@@ -171,5 +176,5 @@ body.page-login .layout-container {
     transition: .2s ease-in-out margin-left;
 }
 body:not(.page-login) .layout-container .layout-content {
-    padding: 10px;
+    padding: 15px;
 }

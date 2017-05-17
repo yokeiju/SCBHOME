@@ -1,7 +1,7 @@
 <script src="{{ NoCacheUrl "/web/static/main/js/dashboard-index.js"}}"></script>
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/dashboard-index.css" }}" />
 
-<div class="col-md-12 switcher">
+<div class="col-md-12 no-padding-side switcher">
 	<div class="input-group input-group-lg search-box">
 		<span class="input-group-addon">
 			<i class="fa fa-search"></i>
@@ -19,7 +19,7 @@
 	</div>
 </div>
 
-<div class="col-md-12 content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
+<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
 	<div class="col-md-4">
 		<div class="box" data-bind="click: dashboard.open(URL)">
 			<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + Cover + ')' }"></div>
@@ -35,7 +35,7 @@
 	</div>
 </div>
 
-<div class="col-md-12 content-wrapper" data-bind="visible: (dashboard.mode() == 'tree'), foreach: dashboard.dataPageBoxFiltered">
+<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'tree'), foreach: dashboard.dataPageBoxFiltered">
 	<div class="col-md-4">
 		<div class="tree">
 			<div class="project-title" data-bind="text: ProjectName"></div>
