@@ -9,6 +9,7 @@ dashboard.inputmaster = {
     PlatformId:ko.observable(""),
     URL:ko.observable(""),
 }
+
 dashboard.getMasterPlatformData = function (callback) {
     viewModel.isLoading(true)
 
@@ -150,34 +151,34 @@ dashboard.deleteMaster = function(){
 }
 
 dashboard.saveMaster = function() {
-        viewModel.isLoading(true);
-        var url = "/web/dashboard/savepage";
+    viewModel.isLoading(true);
+    var url = "/web/dashboard/savepage";
 
-        if (dashboard.inputmaster.Id() == "") {
-            var idmaster = "";
+    if (dashboard.inputmaster.Id() == "") {
+        var idmaster = "";
+    } else {
+        var idmaster = dashboard.inputmaster.Id();
+    }
+
+    var param = {
+        Id: idmaster,
+        ProjectName: dashboard.inputmaster.ProjectName(),
+        PlatformId: dashboard.inputmaster.PlatformId(),
+        URL: dashboard.inputmaster.URL(),
+    }
+
+    ajaxPost(url, param, function(data) {
+        if (data.Status == "OK") {
+            swal("Saved!", "Your file has been successfully Update.", "success");
+            dashboard.reset();
+            dashboard.checkeddata([]);
+            dashboard.global();
+            $('#inputMaster').modal('hide');
         } else {
-            var idmaster = dashboard.inputmaster.Id();
+            swal("Error!", data.Message, "error");
         }
 
-        var param = {
-            Id: idmaster,
-            ProjectName: dashboard.inputmaster.ProjectName(),
-            PlatformId: dashboard.inputmaster.PlatformId(),
-            URL: dashboard.inputmaster.URL(),
-        }
-
-        ajaxPost(url, param, function(data) {
-            if (data.Status == "OK") {
-                swal("Saved!", "Your file has been successfully Update.", "success");
-                dashboard.reset();
-                dashboard.checkeddata([]);
-                dashboard.global();
-                $('#inputMaster').modal('hide');
-            } else {
-                swal("Error!", data.Message, "error");
-            }
-
-        });
+    });
 }
 
 dashboard.reset = function(){
@@ -200,10 +201,6 @@ dashboard.global = function(){
         })
     })
 }
-
-
-
 $(function () {
     dashboard.global();
-
 })

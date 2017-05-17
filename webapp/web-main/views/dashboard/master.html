@@ -40,24 +40,24 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal" id="myform" role="form" data-bind="with:dashboard.inputmaster">
+                <form class="form-horizontal" role="form" data-bind="with:dashboard.inputmaster">
                     <input type="hidden"  class="form-control" id="IdMaster" placeholder="Project Name" data-bind="value:Id" />
                     <div class="form-group">
                         <label class="col-sm-2 control-label">ProjectName</label>
                         <div class="col-sm-10">
-                            <input type="text" required name="ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value:ProjectName"/>
+                            <input type="text" required class="form-control" id="projectname" placeholder="Project Name" data-bind="value:ProjectName"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Platform</label>
                         <div class="col-sm-10">
-                             <input type="text" id="platform" name="Platform" style="width:100%" required data-bind=" kendoDropDownList: { data: dashboard.dataMasterPlatform, dataValueField: 'Id', dataTextField: 'Name', optionLabel:'Select Platform',value:PlatformId}" />
+                             <input type="text" id="platform" name="Notify" style="width:100%" required data-bind=" kendoDropDownList: { data: dashboard.dataMasterPlatform, dataValueField: 'Id', dataTextField: 'Name', optionLabel:'Select Platform',value:PlatformId}" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Url</label>
                         <div class="col-sm-10">
-                            <input type="text" required class="form-control" id="url" placeholder="Url" name="URL" data-bind="value:URL"/>
+                            <input type="text" required class="form-control" id="url" placeholder="Url" data-bind="value:URL" />
                         </div>
                     </div>
                 </form>
