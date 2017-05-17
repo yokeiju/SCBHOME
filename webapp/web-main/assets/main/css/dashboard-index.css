@@ -73,11 +73,12 @@
 }
 .box .notify-color {
     display: inline-block;
-    width: 17px;
+    width: 19px;
     border-radius: 4px;
     position: absolute;
     right: 12px;
-    top: 11px;
+    border: 1px solid #35495d;
+    top: 10px;
 }
 .box .projecttitle {
     font-size: 30px;
@@ -97,12 +98,13 @@
 }
 .box .subproject {
     position: absolute;
-    background-color: #293846;
+    background-color: #3f556b;
     left: 0px;
     right: 0;
     bottom: 0;
     height: 40px;
     padding-top: 10px;
+    font-size: 13px;
     transition: .2s ease-in-out opacity;
 }
 .box .background {
