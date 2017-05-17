@@ -2,23 +2,26 @@
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/dashboard-master.css" }}" />
 
 <div class="filter col-md-12">
-	<div class="row">
-		<div class="pull-left">
-			<h3>Master Data</h3>
-		</div>
-		<div class="pull-right">
-			<button class="btn btn-sm btn-success" data-target="#inputMaster" data-toggle="modal" onclick="dashboard.reset()">
-				<i class="fa fa-plus"></i> Add New
-			</button>
-			<button class="btn btn-sm btn-primary" onclick="dashboard.editMaster()">
-				<i class="fa fa-edit"></i> Edit
-			</button>
-			<button class="btn btn-sm btn-danger" onclick="dashboard.deleteMaster()">
-				<i class="fa fa-trash"></i> Delete
-			</button>
-		</div>
-		<div class="clearfix"></div>
-	</div>
+    <div class="row">
+        <div class="pull-left">
+            <h3>Master Data</h3>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-sm btn-primary" onclick="dashboard.global()">
+                <i class="fa fa-refresh"></i> Refresh
+            </button>
+            <button class="btn btn-sm btn-success" data-target="#inputMaster" data-toggle="modal" onclick="dashboard.reset()">
+                <i class="fa fa-plus"></i> Add New
+            </button>
+            <button class="btn btn-sm btn-primary" onclick="dashboard.editMaster()">
+                <i class="fa fa-edit"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="dashboard.deleteMaster()">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
 <div class="clearfix"></div>
 
@@ -35,29 +38,29 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                	<span id="TitleModal"></span>
-            	</h4>
+                    <span id="TitleModal"></span>
+                </h4>
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal" role="form" data-bind="with:dashboard.inputmaster">
+                <form class="form-horizontal" id="myForm" role="form" data-bind="with:dashboard.inputMaster">
                     <input type="hidden"  class="form-control" id="IdMaster" placeholder="Project Name" data-bind="value:Id" />
                     <div class="form-group">
                         <label class="col-sm-2 control-label">ProjectName</label>
                         <div class="col-sm-10">
-                            <input type="text" required class="form-control" id="projectname" placeholder="Project Name" data-bind="value:ProjectName"/>
+                            <input type="text" required validationMessage="Enter ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value:ProjectName"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Platform</label>
                         <div class="col-sm-10">
-                             <input type="text" id="platform" name="Notify" style="width:100%" required data-bind=" kendoDropDownList: { data: dashboard.dataMasterPlatform, dataValueField: 'Id', dataTextField: 'Name', optionLabel:'Select Platform',value:PlatformId}" />
+                             <input type="text" id="platform" name="Platform" style="width:100%" required validationMessage="Enter Platform" data-bind=" kendoDropDownList: { data: dashboard.dataMasterPlatform, dataValueField: 'Id', dataTextField: 'Name', optionLabel:'Select Platform',value:PlatformId}" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Url</label>
                         <div class="col-sm-10">
-                            <input type="text" required class="form-control" id="url" placeholder="Url" data-bind="value:URL" />
+                            <input type="text" required validationMessage="Enter URL" name="Url" class="form-control" id="url" placeholder="Url" data-bind="value:URL" />
                         </div>
                     </div>
                 </form>
