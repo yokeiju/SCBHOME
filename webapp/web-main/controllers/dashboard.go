@@ -67,6 +67,40 @@ func (c *DashboardController) GetPage(k *knot.WebContext) interface{} {
 	return c.SetResultOK(data)
 }
 
+func (c *DashboardController) SavePage(k *knot.WebContext) interface{} {
+	c.SetupForAJAX(k)
+
+	payload := new(models.PageModel)
+	err := k.GetPayload(&payload)
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	err = c.Ctx.Save(payload)
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	return c.SetResultOK(nil)
+}
+
+func (c *DashboardController) DeletePage(k *knot.WebContext) interface{} {
+	c.SetupForAJAX(k)
+
+	payload := new(models.PageModel)
+	err := k.GetPayload(&payload)
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	err = c.Ctx.Delete(payload)
+	if err != nil {
+		return c.SetResultError(err.Error(), nil)
+	}
+
+	return c.SetResultOK(nil)
+}
+
 func (c *DashboardController) GetMasterPlatform(k *knot.WebContext) interface{} {
 	c.SetupForAJAX(k)
 
