@@ -87,7 +87,7 @@ dashboard.refresh = function () {
                 return '<span class="notify-color" style="background-color: ' + d.Color + '">&nbsp;</span>' + d.PlatformName
             }, width: 150 },
             { field: 'URL', title: 'URL Address' },
-            { title: '&nbsp;', width: 120, template: function (d) {
+            { title: '&nbsp;', width: 130, template: function (d) {
                 return '<a target="_blank" href="' + d.URL + '" class="notify-link label label-success"><i class="fa fa-share-square"></i>&nbsp; Open in New Tab</a>'
             }, attributes: { class: 'align-center' } },
             { title: '&nbsp;', width: 30, template: function (d) {
