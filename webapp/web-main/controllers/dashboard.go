@@ -3,7 +3,7 @@ package controllers
 import (
 	"eaciit/scbhome/webapp/web-main/models"
 	"github.com/eaciit/knot/knot.v1"
-	// tk "github.com/eaciit/toolkit"
+	tk "github.com/eaciit/toolkit"
 )
 
 type DashboardController struct {
@@ -60,6 +60,10 @@ func (c *DashboardController) SavePage(k *knot.WebContext) interface{} {
 	err := k.GetPayload(&payload)
 	if err != nil {
 		return c.SetResultError(err.Error(), nil)
+	}
+
+	if payload.Id == "" {
+		payload.Id = tk.RandomString(32)
 	}
 
 	err = c.Ctx.Save(payload)

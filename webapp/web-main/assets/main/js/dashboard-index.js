@@ -1,15 +1,7 @@
 var dashboard = {};
 viewModel.dashboard = dashboard
 
-dashboard.showRow = function(){
-    $("#panel1").show();
-    $("#panel2").hide();    
-};
-
-dashboard.showList = function(){
-    $("#panel1").hide();
-    $("#panel2").show();    
-}
+dashboard.mode = ko.observable('box')
 
 dashboard.dataMasterPlatform = ko.observableArray([])
 dashboard.getMasterPlatformData = function (callback) {
@@ -30,6 +22,22 @@ dashboard.getMasterPlatformData = function (callback) {
 }
 
 dashboard.searchKeyword = ko.observable('')
+dashboard.newPageObject = function () {
+    var row = {}
+    row.Color = ""
+    row.Cover = ""
+    row.Id = viewModel.randomString(32)
+    row.Password = ""
+    row.PlatformId = ""
+    row.PlatformName = ""
+    row.ProjectName = ""
+    row.URL = ""
+    row.PlatformName = ""
+    row.ProjectName = ""
+    row.URL = ""
+    row.Username = ""
+    return row
+}
 dashboard.dataPage = ko.observableArray([])
 dashboard.dataPageFiltered = ko.computed(function () {
     if (dashboard.searchKeyword() == '') {
@@ -47,16 +55,33 @@ dashboard.dataPageFiltered = ko.computed(function () {
 dashboard.dataPageBoxFiltered = ko.computed(function () {
     var data = dashboard.dataPageFiltered()
     var result = []
-    
-    _.each(_.groupBy(data, "ProjectName"), function (v, i) {
-        datatmp = []
-        _.each(_.groupBy(v, "Color"), function(vv, ii) {
-            datatmp.push(vv[0])
+
+    var grouped = _.groupBy(data, "ProjectName")
+    var result = Object.keys(grouped).map(function (d) {
+        var row = {}
+        row.ProjectName = d
+        row.Data = grouped[d].slice(0)
+
+        dashboard.dataMasterPlatform().forEach(function (d) {
+            var isFound = row.Data.filter(function (k) {
+                return k.PlatformId === d.Id
+            }).length > 0
+            if (!isFound) {
+                var fakePage = dashboard.newPageObject()
+                fakePage.PlatformId = d.Id
+                fakePage.PlatformName = d.Name
+                fakePage.Color = d.Color
+                fakePage.ProjectName = d
+                fakePage.IsFake = true
+                row.Data.push(fakePage)
+            }
         })
-        result.push({"data": datatmp})
+
+        row.Data = _.sortBy(row.Data, 'PlatformName')
+        return row
     })
 
-    return result
+    return _.sortBy(result, 'ProjectName')
 })
 
 dashboard.getPageData = function (callback) {
