@@ -4,10 +4,11 @@ viewModel.dashboard = dashboard
 dashboard.dataMasterPlatform = ko.observableArray([])
 dashboard.checkedData = ko.observableArray([])
 dashboard.inputMaster = {
-    Id: ko.observable(""),
-    ProjectName: ko.observable(""),
-    PlatformId: ko.observable(""),
-    URL: ko.observable(""),
+    Id: ko.observable(''),
+    ProjectName: ko.observable(''),
+    PlatformId: ko.observable(''),
+    Description: ko.observable(''),
+    URL: ko.observable(''),
 }
 
 dashboard.getMasterPlatformData = function (callback) {
@@ -174,11 +175,11 @@ dashboard.saveMaster = function() {
 }
 
 dashboard.reset = function(){
-    dashboard.inputMaster.Id("");
-    dashboard.inputMaster.ProjectName("");
-    dashboard.inputMaster.PlatformId("");
-    dashboard.inputMaster.URL("");
-    $("#platform").val("").data("kendoDropDownList").text("");
+    dashboard.inputMaster.Id('');
+    dashboard.inputMaster.ProjectName('');
+    dashboard.inputMaster.PlatformId('');
+    dashboard.inputMaster.URL('');
+    $("#platform").val('').data("kendoDropDownList").text('');
     $("#TitleModal").html("Add Master");
     $("#TitleButtonModal").html("Save");
 }

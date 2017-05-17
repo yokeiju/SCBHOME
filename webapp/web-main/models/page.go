@@ -13,6 +13,7 @@ type PageModel struct {
 	PlatformId  string `bson:"PlatformId",json:"PlatformId"`
 	URL         string `bson:"URL",json:"URL"`
 	Cover       string `bson:"Cover",json:"Cover"`
+	Description string `bson:"Description",json:"Description"`
 	Username    string `bson:"Username",json:"Username"`
 	Password    string `bson:"Password",json:"Password"`
 }
