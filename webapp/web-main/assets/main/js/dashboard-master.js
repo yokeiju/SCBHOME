@@ -2,6 +2,13 @@ var dashboard = {}
 viewModel.dashboard = dashboard
 
 dashboard.dataMasterPlatform = ko.observableArray([])
+
+dashboard.inputmaster = {
+    projectname:ko.observable(""),
+    platformid:ko.observable(""),
+    url:ko.observable(""),
+}
+
 dashboard.getMasterPlatformData = function (callback) {
     viewModel.isLoading(true)
 
@@ -98,6 +105,12 @@ dashboard.refresh = function () {
     })
 }
 
+dashboard.addnewmaster = function(){
+    dashboard.inputmaster.projectname("");
+    dashboard.inputmaster.platformid("");
+    dashboard.inputmaster.url("");
+}
+
 $(function () {
     dashboard.getMasterPlatformData(function () {
         dashboard.getPageData(function () {
@@ -107,4 +120,5 @@ $(function () {
             }, 1000)
         })
     })
+
 })

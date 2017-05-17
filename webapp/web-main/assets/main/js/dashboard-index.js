@@ -75,9 +75,6 @@ dashboard.data = [
 
 ]
 
-// dashboard.datalist = _.groupBy(dashboard.data, function(e) { return c.push({TitleProject:e.TitleProject}); });
-// console.log(dashboard.datalist);
-
 data = dashboard.data
 databaru = [];
 _.each(_.groupBy(data,"TitleProject"), function(v,i){
