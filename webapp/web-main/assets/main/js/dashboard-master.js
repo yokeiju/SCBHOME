@@ -153,21 +153,24 @@ dashboard.deleteMaster = function(){
 }
 
 dashboard.saveMaster = function() {
-    viewModel.isLoading(true);
-    var url = "/web/dashboard/savepage";
+    var validator = $("#myForm").kendoValidator().data("kendoValidator")
+    if (validator.validate()) {
+        viewModel.isLoading(true);
+        var url = "/web/dashboard/savepage";
 
-    var param = ko.mapping.toJS(dashboard.inputMaster)
-    ajaxPost(url, param, function(data) {
-        if (data.Status == "OK") {
-            swal("Saved!", "Your file has been successfully Update.", "success");
-            dashboard.reset();
-            dashboard.checkedData([]);
-            dashboard.global();
-            $('#inputMaster').modal('hide');
-        } else {
-            swal("Error!", data.Message, "error");
-        }
-    });
+        var param = ko.mapping.toJS(dashboard.inputMaster)
+        ajaxPost(url, param, function(data) {
+            if (data.Status == "OK") {
+                swal("Saved!", "Your file has been successfully Update.", "success");
+                dashboard.reset();
+                dashboard.checkedData([]);
+                dashboard.global();
+                $('#inputMaster').modal('hide');
+            } else {
+                swal("Error!", data.Message, "error");
+            }
+        });
+    }
 }
 
 dashboard.reset = function(){
