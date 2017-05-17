@@ -21,7 +21,12 @@
 .switcher .pull-right {
     position: absolute;
     right: 30px;
-    top: 5px;
+    top: 0px;
+}
+.switcher .pull-right .btn {
+    padding: 11px 12px 9px;
+    height: 40px;
+    border-radius: 6px;
 }
 .switcher .btn.focus, .switcher .btn:focus, .switcher .btn:hover, .switcher .btn.active {
     color: white;
