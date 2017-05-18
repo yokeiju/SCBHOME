@@ -10,36 +10,40 @@
 	</div>
 	
 	<div class="pull-right">
-	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('tree') }, css: { 'active': (dashboard.mode() == 'tree') }">
-	 		<span class="fa fa-lg fa-sitemap"></span>
-		</button>
 	 	<button class="btn btn-sm btn-gray active" data-bind="click: function () { dashboard.mode('box') }, css: { 'active': (dashboard.mode() == 'box') }">
 	 		<span class="fa fa-lg fa-th"></span>
+		</button>
+	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('tree') }, css: { 'active': (dashboard.mode() == 'tree') }">
+	 		<span class="fa fa-lg fa-list-ul"></span>
 		</button>
 	</div>
 </div>
 
 <div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
 	<div class="col-md-4">
-		<div class="box" data-bind="click: dashboard.open(URL)">
+		<div class="box">
 			<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + Cover + ')' }"></div>
 			<div class="background-overlay"></div>
 			<div class="project-title">
 				<div data-bind="text: ProjectName"></div>
 			</div>
-			<div class="platform">
-				<span class="notify-color" data-bind="style: { 'background-color': Color }">&nbsp;</span>
-				<span data-bind="text: PlatformName"></span>
+			<div class="info">
+				<div class="title" data-bind="text: ProjectName"></div>
 				<div class="description">
 					<div>
 						<span data-bind="text: Description"></span>
 					</div>
 				</div>
 			</div>
+			<div class="menu" data-bind="foreach: Platforms">
+				<a class="col-md-3" data-bind="attr: { 'href': URL }, style: { 'border-top-color': Color }, css: { 'nope': (URL == '') }">
+					<span data-bind="text: PlatformName"></span>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
-
+<!-- 
 <div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'tree'), foreach: dashboard.dataPageBoxFiltered">
 	<div class="col-md-4">
 		<div class="tree">
@@ -55,4 +59,4 @@
 		</div>
 	</div>
 </div>
-
+ -->
