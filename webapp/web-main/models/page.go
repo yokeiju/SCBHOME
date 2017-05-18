@@ -5,21 +5,21 @@ import (
 	tk "github.com/eaciit/toolkit"
 )
 
-type PagePlatforms struct {
+type PagePlatform struct {
 	PlatformId   string `bson:"PlatformId",json:"PlatformId"`
 	PlatformName string `bson:"PlatformName",json:"PlatformName"`
+	URL          string `bson:"URL",json:"URL"`
 	Username     string `bson:"Username",json:"Username"`
 	Password     string `bson:"Password",json:"Password"`
 }
 
 type PageModel struct {
 	orm.ModelBase `bson:"-",json:"-"`
-	Id            string `bson:"_id",json:"_id"`
-	ProjectName   string `bson:"ProjectName",json:"ProjectName"`
-	Description   string `bson:"Description",json:"Description"`
-	Cover         string `bson:"Cover",json:"Cover"`
-
-	Platforms []PagePlatforms
+	Id            string         `bson:"_id",json:"_id"`
+	ProjectName   string         `bson:"ProjectName",json:"ProjectName"`
+	Description   string         `bson:"Description",json:"Description"`
+	Cover         string         `bson:"Cover",json:"Cover"`
+	Platforms     []PagePlatform `bson:"Platforms",json:"Platforms"`
 }
 
 func NewPageModel() *PageModel {

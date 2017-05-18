@@ -148,70 +148,72 @@ func (c *DashboardController) InsertPredefinedData(k *knot.WebContext) interface
 
 	// pages
 	err = (func() error {
+		const DESC = "Application for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+
 		pages := []models.PageModel{
-			{
-				Id:          "p4",
-				ProjectName: "BEF",
-				PlatformId:  "P01",
-				URL:         "http://scb-bef.eaciitapp.com/dashboard/default",
-				Description: "BEF is application for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "andrew-neel-108081.jpg"},
-			{
-				Id:          "p8",
-				ProjectName: "FMI",
-				PlatformId:  "P02",
-				URL:         "https://fmi.exellerator.io",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "Budgeting-and-Planning.jpg"},
-			{
-				Id:          "p9",
-				ProjectName: "FMI Dev",
-				PlatformId:  "P04",
-				URL:         "http://fmidev.eaciitapp.com",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "calculator-calculation-insurance-finance-53621.jpeg"},
-			{
-				Id:          "p2",
-				ProjectName: "IKEA",
-				PlatformId:  "P01",
-				URL:         "http://scbikea.eaciit.com/dashboard/default",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "jeff-sheldon-3231.jpg"},
-			{
-				Id:          "p6",
-				ProjectName: "Mobile Money",
-				PlatformId:  "P01",
-				URL:         "http://scmm.eaciit.com/dashboard/default",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "finance-mobile.jpg"},
-			{
-				Id:          "p1",
-				ProjectName: "OCIR",
-				PlatformId:  "P01",
-				URL:         "http://scbocir-dev.eaciit.com/live/dashboard/default",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "michal-kubalczyk-257107.jpg"},
-			{
-				Id:          "p5",
-				ProjectName: "Sales Perf Dashboard",
-				PlatformId:  "P02",
-				URL:         "https://cbi.exellerator.io/dashboard/default",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "carlos-muza-84523.jpg"},
-			{
-				Id:          "p3",
-				ProjectName: "Super Connect 5",
-				PlatformId:  "P01",
-				URL:         "http://www.superconnect5.com/admin/dashboard/default",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "jason-ortego-5383.jpg"},
-			{
-				Id:          "p7",
-				ProjectName: "TWIST",
-				PlatformId:  "P02",
-				URL:         "https://twist.exellerator.io/",
-				Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-				Cover:       "miguel-carraca-131178.jpg"}}
+			{Id: "p4", ProjectName: "BEF", Description: DESC, Cover: "andrew-neel-108081.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "http://scb-bef.eaciitapp.com/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p8", ProjectName: "FMI", Description: DESC, Cover: "Budgeting-and-Planning.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "https://fmi.exellerator.io", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p9", ProjectName: "FMI Dev", Description: DESC, Cover: "calculator-calculation-insurance-finance-53621.jpeg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "http://fmidev.eaciitapp.com", Username: "", Password: ""},
+				}},
+			{Id: "p2", ProjectName: "IKEA", Description: DESC, Cover: "jeff-sheldon-3231.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "http://scbikea.eaciit.com/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p6", ProjectName: "Mobile Money", Description: DESC, Cover: "finance-mobile.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "http://scmm.eaciit.com/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p1", ProjectName: "OCIR", Description: DESC, Cover: "michal-kubalczyk-257107.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "http://scbocir-dev.eaciit.com/live/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p5", ProjectName: "Sales Perf Dashboard", Description: DESC, Cover: "carlos-muza-84523.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "https://cbi.exellerator.io/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p3", ProjectName: "Super Connect 5", Description: DESC, Cover: "jason-ortego-5383.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "http://www.superconnect5.com/admin/dashboard/default", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}},
+			{Id: "p7", ProjectName: "TWIST", Description: DESC, Cover: "miguel-carraca-131178.jpg",
+				Platforms: []models.PagePlatform{
+					{PlatformId: "P01", PlatformName: "EACIIT App", URL: "", Username: "", Password: ""},
+					{PlatformId: "P02", PlatformName: "Exellerator", URL: "https://twist.exellerator.io/", Username: "", Password: ""},
+					{PlatformId: "P03", PlatformName: "UAT", URL: "", Username: "", Password: ""},
+					{PlatformId: "P04", PlatformName: "Development", URL: "", Username: "", Password: ""},
+				}}}
 
 		for _, each := range pages {
 			err := c.Ctx.Save(&each)
