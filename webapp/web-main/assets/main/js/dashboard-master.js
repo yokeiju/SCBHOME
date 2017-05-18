@@ -3,12 +3,20 @@ viewModel.dashboard = dashboard
 
 dashboard.dataMasterPlatform = ko.observableArray([])
 dashboard.checkedData = ko.observableArray([])
+dashboard.inputMasterMap = ko.observable()
 dashboard.inputMaster = {
-    Id: ko.observable(''),
-    ProjectName: ko.observable(''),
-    PlatformId: ko.observable(''),
-    Description: ko.observable(''),
-    URL: ko.observable(''),
+    Id: "",
+    ProjectName: "",
+    Description: "",
+    Platforms:[],
+}
+
+dashboard.ListPlatforms = {
+        PlatformId :"", 
+        PlatformName : "", 
+        URL : "", 
+        Username : "", 
+        Password : "",
 }
 
 dashboard.getMasterPlatformData = function (callback) {
@@ -21,6 +29,8 @@ dashboard.getMasterPlatformData = function (callback) {
         }
 
         dashboard.dataMasterPlatform(res.Data)
+
+
         callback()
     }, function () {
         viewModel.isLoading(false)
@@ -47,9 +57,9 @@ dashboard.getPageData = function (callback) {
                 d.PlatformName = platform.Name
             }
 
-            if (d.URL.indexOf('http') !== 0) {
-                d.URL = 'http://' + d.URL
-            }
+            // if (d.URL.indexOf('http') !== 0) {
+            //     d.URL = 'http://' + d.URL
+            // }
 
             return d
         }), 'ProjectName')
@@ -154,12 +164,13 @@ dashboard.deleteMaster = function(){
 }
 
 dashboard.saveMaster = function() {
+    console.log(ko.mapping.toJS(dashboard.inputMasterMap));
     var validator = $("#myForm").kendoValidator().data("kendoValidator")
     if (validator.validate()) {
         viewModel.isLoading(true);
         var url = "/web/dashboard/savepage";
 
-        var param = ko.mapping.toJS(dashboard.inputMaster)
+        var param = ko.mapping.toJS(dashboard.inputMasterMap)
         ajaxPost(url, param, function(data) {
             if (data.Status == "OK") {
                 swal("Saved!", "Your file has been successfully Update.", "success");
@@ -175,13 +186,22 @@ dashboard.saveMaster = function() {
 }
 
 dashboard.reset = function(){
-    dashboard.inputMaster.Id('');
-    dashboard.inputMaster.ProjectName('');
-    dashboard.inputMaster.PlatformId('');
-    dashboard.inputMaster.URL('');
-    $("#platform").val('').data("kendoDropDownList").text('');
     $("#TitleModal").html("Add Master");
     $("#TitleButtonModal").html("Save");
+    // $('#inputMaster').modal('show');
+    dashboard.ListPlatforms =[];
+    _.each(dashboard.dataMasterPlatform(), function(v,i) { 
+        console.log(v.Id);
+        dashboard.ListPlatforms.push({
+            PlatformId :v.Id, 
+            PlatformName : v.Name, 
+            URL : "", 
+            Username : "", 
+            Password : "",
+        });
+    });
+    dashboard.inputMaster.Platforms = dashboard.ListPlatforms;
+    dashboard.inputMasterMap(ko.mapping.fromJS(dashboard.inputMaster))
 }
 
 dashboard.global = function(){
@@ -196,4 +216,5 @@ dashboard.global = function(){
 }
 $(function () {
     dashboard.global();
+    
 })

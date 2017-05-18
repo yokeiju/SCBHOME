@@ -43,3 +43,15 @@
 #myForm {
     padding-right: 15px;
 }
+
+.no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.labelnormal {
+    font-weight: normal;
+}
+
+.bottom-padding {
+    padding-bottom: 5px;
+}

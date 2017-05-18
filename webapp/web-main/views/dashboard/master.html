@@ -42,32 +42,31 @@
                 </h4>
             </div>
             <!-- Modal Body -->
-            <div class="modal-body">
-                <form class="form-horizontal" id="myForm" role="form" data-bind="with:dashboard.inputMaster">
+            <div class="modal-body" data-bind="with:dashboard.inputMasterMap">
+                <form class="form-horizontal" id="myForm" role="form">
                     <input type="hidden"  class="form-control" id="IdMaster" placeholder="Project Name" data-bind="value:Id" />
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Project Name</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-12">Project Name</label>
+                        <div class="col-sm-12">
                             <input type="text" required validationMessage="Enter ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value: ProjectName"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Platform</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="platform" name="Platform" style="width:100%" required validationMessage="Enter Platform" data-bind="kendoDropDownList: { data: dashboard.dataMasterPlatform, dataValueField: 'Id', dataTextField: 'Name', optionLabel:'Select Platform',value:PlatformId}" />
-                            <span class="k-invalid-msg" data-for="Platform"></span>
+                        <label class="col-sm-12">Description</label>
+                        <div class="col-sm-12">
+                            <textarea class="form-control input-sm" placeholder="Description" required validationMessage="Description" name="Url" data-bind="value: Description"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Url</label>
-                        <div class="col-sm-10">
-                            <input type="text" required validationMessage="Enter URL" name="Url" class="form-control" id="url" placeholder="Url" data-bind="value: URL" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control input-sm" required validationMessage="Enter URL" name="Url" data-bind="value: Description"></textarea>
+                        <label class="col-sm-3">Platform Name</label>
+                        <label class="col-sm-9">Url</label>   
+                        <div class="col-sm-12 no-padding" data-bind="foreach:Platforms">                     
+                            <div class="col-sm-3 bottom-padding no-padding">
+                                 <span class="col-sm-12 no-padding-left labelnormal" data-bind="text:PlatformName"></span>
+                            </div>
+                            <div class="col-sm-9 bottom-padding">
+                                 <input type="text" class="form-control" data-bind="value:URL"/>
+                            </div>
                         </div>
                     </div>
                 </form>
