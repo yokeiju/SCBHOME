@@ -17,6 +17,10 @@ body {
     // text-rendering: optimizeLegibility;
 }
 
+.k-grid {
+    font-size: 12px;
+}
+
 .container-fluid {
     width: 100%;
     padding-left: 0;

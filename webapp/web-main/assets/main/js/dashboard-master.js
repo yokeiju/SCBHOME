@@ -83,27 +83,54 @@ dashboard.refresh = function () {
         return
     }
 
+    var columns = [
+        { field: 'ProjectName', title: 'Project Name', width: 200 },
+        { field: 'Description' },
+    ]
+    var columnPlatforms = dashboard.dataMasterPlatform().map(function (d) {
+        return {
+            width: 96,
+            attributes: { class: 'align-center' },
+            headerTemplate: function () {
+                return '<div class="align-center">' + d.Name + '</div>'
+            },
+            template: function (e) {
+                var row = e.Platforms.find(function (k) {
+                    return k.PlatformId === d.Id
+                })
+                if (row !== undefined) {
+                    if ($.trim(row.URL) !== '') {
+                        return '<i class="fa fa-check"></i>'
+                    }
+                }
+
+                return ''
+            }
+        }
+    })
+    columns = columns.concat([{ 
+        headerTemplate: function () {
+            return '<div class="align-center">Platform Availability</div>'
+        },
+        columns: columnPlatforms
+    }, { 
+        title: '&nbsp;', 
+        width: 40, 
+        template: function (d) {
+            return '<input class="checkboxgrid" type="checkbox" id="checkbox-'+d.Id+'" onclick="dashboard.listcheck(\''+d.Id+'\')"/>'
+        }, 
+        attributes: { class: 'align-center' }
+    }])
+
     $('.grid').kendoGrid({
         dataSource: {
             data: data,
-            pageSize: 100
+            pageSize: 8
         },
         pageable: true,
         sortable: true,
         filterable: true,
-        columns: [
-            { field: 'ProjectName', title: 'Project Name' },
-            { title: 'Platform', template: function (d) {
-                return '<span class="notify-color" style="background-color: ' + d.Color + '">&nbsp;</span>' + d.PlatformName
-            }, width: 150 },
-            { field: 'URL', title: 'URL Address' },
-            { title: '&nbsp;', width: 130, template: function (d) {
-                return '<a target="_blank" href="' + d.URL + '" class="notify-link label label-success"><i class="fa fa-share-square"></i>&nbsp; Open in New Tab</a>'
-            }, attributes: { class: 'align-center' } },
-            { title: '&nbsp;', width: 30, template: function (d) {
-                return '<input class="checkboxgrid" type="checkbox" id="checkbox-'+d.Id+'" onclick="dashboard.listcheck(\''+d.Id+'\')"/>'
-            }, attributes: { class: 'align-center' } },
-        ]
+        columns: columns
     })
 }
 
