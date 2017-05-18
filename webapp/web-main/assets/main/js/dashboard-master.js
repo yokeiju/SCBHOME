@@ -153,11 +153,8 @@ dashboard.editMaster = function () {
     $("#TitleButtonModal").html("Update");
     var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
     console.log(tempdata);
-    // $('#inputMaster').modal('show');
-    // dashboard.inputMaster.Id(tempdata.Id);
-    // dashboard.inputMaster.ProjectName(tempdata.ProjectName);
-    // dashboard.inputMaster.PlatformId(tempdata.PlatformId);
-    // dashboard.inputMaster.URL(tempdata.URL);
+    $('#inputMaster').modal('show');
+    dashboard.inputMasterMap(ko.mapping.fromJS(tempdata))
 }
 
 dashboard.deleteMaster = function(){
