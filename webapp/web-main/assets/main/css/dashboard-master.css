@@ -14,6 +14,7 @@
 .grid .fa.fa-check {
     color: #5cb85c;
 }
+
 .filter {
 	margin-bottom: 10px;
     padding: 0px 20px;
@@ -45,6 +46,9 @@
 }
 #myForm {
     padding-right: 15px;
+}
+#myForm textarea {
+    font-size: 14px;
 }
 
 .no-padding{
