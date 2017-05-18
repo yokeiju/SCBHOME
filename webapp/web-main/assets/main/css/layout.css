@@ -27,10 +27,13 @@ body {
     padding-right: 0;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .no-padding {
     padding: 0px;
 }
-
 .no-padding-side {
     padding-right: 0px;
     padding-left: 0px;

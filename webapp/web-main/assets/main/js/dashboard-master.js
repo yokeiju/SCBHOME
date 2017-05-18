@@ -84,7 +84,7 @@ dashboard.refresh = function () {
     }
 
     var columns = [
-        { field: 'ProjectName', title: 'Project Name', width: 200 },
+        { field: 'ProjectName', title: 'Project Name', width: 200, attributes: { class: 'bold' } },
         { field: 'Description' },
     ]
     var columnPlatforms = dashboard.dataMasterPlatform().map(function (d) {
