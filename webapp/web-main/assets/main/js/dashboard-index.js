@@ -51,37 +51,6 @@ dashboard.dataPageFiltered = ko.computed(function () {
         return cond1
     })
 }, dashboard)
-dashboard.dataPageBoxFiltered = ko.computed(function () {
-    var data = dashboard.dataPageFiltered()
-    var result = []
-
-    var grouped = _.groupBy(data, "ProjectName")
-    var result = Object.keys(grouped).map(function (d) {
-        var row = {}
-        row.ProjectName = d
-        row.Data = grouped[d].slice(0)
-
-        dashboard.dataMasterPlatform().forEach(function (d) {
-            var isFound = row.Data.filter(function (k) {
-                return k.PlatformId === d.Id
-            }).length > 0
-            if (!isFound) {
-                var fakePage = dashboard.newPageObject()
-                fakePage.PlatformId = d.Id
-                fakePage.PlatformName = d.Name
-                fakePage.Color = d.Color
-                fakePage.ProjectName = d
-                fakePage.IsFake = true
-                row.Data.push(fakePage)
-            }
-        })
-
-        row.Data = _.sortBy(row.Data, 'PlatformName')
-        return row
-    })
-
-    return _.sortBy(result, 'ProjectName')
-})
 
 dashboard.getPageData = function (callback) {
     viewModel.isLoading(true)
@@ -156,4 +125,5 @@ $(function () {
     dashboard.getMasterPlatformData(function () {
         dashboard.getPageData()
     })
+    dashboard.mode('list')
 })

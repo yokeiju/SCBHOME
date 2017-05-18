@@ -10,10 +10,10 @@
 	</div>
 	
 	<div class="pull-right">
-	 	<button class="btn btn-sm btn-gray active" data-bind="click: function () { dashboard.mode('box') }, css: { 'active': (dashboard.mode() == 'box') }">
+	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('box') }, css: { 'active': (dashboard.mode() == 'box') }">
 	 		<span class="fa fa-lg fa-th"></span>
 		</button>
-	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('tree') }, css: { 'active': (dashboard.mode() == 'tree') }">
+	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('list') }, css: { 'active': (dashboard.mode() == 'list') }">
 	 		<span class="fa fa-lg fa-list-ul"></span>
 		</button>
 	</div>
@@ -43,20 +43,23 @@
 		</div>
 	</div>
 </div>
-<!-- 
-<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'tree'), foreach: dashboard.dataPageBoxFiltered">
-	<div class="col-md-4">
-		<div class="tree">
-			<div class="project-title" data-bind="text: ProjectName"></div>
-			<div data-bind="foreach: Data">
-				<div class="col-md-6 item" data-bind="css: { 'inactive': (URL == '') }, attr: { 'data-id': Id }" onclick="dashboard.openById(this)">
-					<div class="wrapper">
-						<span class="platform" data-bind="text: PlatformName, style: { 'color': Color }"></span>
-					</div>
-					<div class="overlay" data-bind="style: { 'background-color': Color }"></div>
+
+<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'list'), foreach: dashboard.dataPageFiltered">
+	<div class="list">
+		<div class="col-md-3">
+			<div data-bind="text: ProjectName"></div>
+		</div>
+		<div class="col-md-9" data-bind="foreach: Platforms">
+			<div class="col-md-3 item">
+				<div class="wrapper">
+					<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + $parent.Cover + ')' }"></div>
+					<div class="overlay"></div>
+					<div class="platform" data-bind="style: { 'background-color': Color }, text: PlatformName"></div>
 				</div>
 			</div>
+			<div class="clearfix" data-bind="visible: ($index() == ($parent.Platforms.length + 1))"></div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
 </div>
- -->
+
