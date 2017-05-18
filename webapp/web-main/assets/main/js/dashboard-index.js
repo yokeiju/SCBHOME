@@ -24,18 +24,19 @@ dashboard.getMasterPlatformData = function (callback) {
 dashboard.searchKeyword = ko.observable('')
 dashboard.newPageObject = function () {
     var row = {}
-    row.Color = ""
     row.Cover = ""
     row.Id = viewModel.randomString(32)
-    row.Password = ""
+    row.ProjectName = ""
+    row.Description = ""
+    return row
+}
+dashboard.newPagePlatformObject = function () {
+    var row = {}
     row.PlatformId = ""
     row.PlatformName = ""
-    row.ProjectName = ""
-    row.URL = ""
-    row.PlatformName = ""
-    row.ProjectName = ""
     row.URL = ""
     row.Username = ""
+    row.Password = ""
     return row
 }
 dashboard.dataPage = ko.observableArray([])
@@ -47,9 +48,7 @@ dashboard.dataPageFiltered = ko.computed(function () {
     return dashboard.dataPage().filter(function (d) {
         var keyword = _.lowerCase(dashboard.searchKeyword())
         var cond1 = _.lowerCase(d.ProjectName).indexOf(keyword) > -1
-        var cond2 = _.lowerCase(d.PlatformName).indexOf(keyword) > -1
-
-        return cond1 || cond2
+        return cond1
     })
 }, dashboard)
 dashboard.dataPageBoxFiltered = ko.computed(function () {
@@ -95,17 +94,27 @@ dashboard.getPageData = function (callback) {
         }
 
         var data = _.sortBy(res.Data.map(function (d) {
-            var platform = dashboard.dataMasterPlatform().find(function (e) { 
-                return e.Id == d.PlatformId
-            })
-            if (typeof platform !== 'undefined') {
-                d.Color = platform.Color
-                d.PlatformName = platform.Name
-            }
+            d.Platforms = dashboard.dataMasterPlatform().map(function (e) {
+                var eachPlatform = d.Platforms.find(function (f) {
+                    return f.PlatformId === e.Id
+                })
+                if (eachPlatform === undefined) {
+                    eachPlatform = dashboard.newPagePlatformObject()
+                    eachPlatform.PlatformId = e.Id
+                    eachPlatform.PlatformName = e.Name
+                }
 
-            if (d.URL.indexOf('http') !== 0) {
-                d.URL = 'http://' + d.URL
-            }
+                if (eachPlatform.URL === '') {
+                    // eachPlatform.URL = '#'
+                } else if (eachPlatform.URL.indexOf('http') === -1) {
+                    eachPlatform.URL = 'http://' + eachPlatform.URL
+                }
+
+                eachPlatform.Color = e.Color
+
+                return eachPlatform
+            })
+
 
             return d
         }), 'ProjectName')
@@ -126,6 +135,7 @@ dashboard.registerSearchEvent = function () {
 dashboard.open = function (url) {
     return function () {
         window.open(url, '_blank')
+        return false
     }
 }
 dashboard.openById = function (obj) {

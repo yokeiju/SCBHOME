@@ -11,6 +11,9 @@
 .grid input[type=checkbox], .grid a[href] {
 	cursor: pointer;
 }
+.grid .fa.fa-check {
+    color: #5cb85c;
+}
 .filter {
 	margin-bottom: 10px;
     padding: 0px 20px;

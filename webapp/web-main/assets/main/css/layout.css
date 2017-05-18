@@ -17,10 +17,18 @@ body {
     // text-rendering: optimizeLegibility;
 }
 
+.k-grid {
+    font-size: 12px;
+}
+
 .container-fluid {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
+}
+
+.no-padding {
+    padding: 0px;
 }
 
 .no-padding-side {

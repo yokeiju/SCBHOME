@@ -67,8 +67,7 @@
     height: 182px;
     position: relative;
     overflow: hidden;
-    cursor: pointer;
-    transition: box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease;
 }
 .box .notify-color {
     display: inline-block;
@@ -89,8 +88,7 @@
     width: 100%;
     position: relative;
     z-index: 2;
-    // transition: .2s ease-in-out opacity;
-    transition: .2s ease-in-out margin-top;
+    transition: .2s ease opacity;
 }
 .box .project-title div {
     display: table-cell;
@@ -99,33 +97,12 @@
     width: 100%;
     text-align: center;
 }
-.box .platform {
-    position: absolute;
-    background-color: #3f556b;
-    left: 0px;
-    right: 0;
-    bottom: 0;
-    height: 40px;
-    padding-top: 11px;
-    font-size: 12px;
-    transition: .2s ease-in-out height;
-    // transition: .2s ease-in-out opacity;
-}
-.box .platform p {
-    margin: 0px;
-    position: absolute;
-    left: 13px;
-    top: 45px;
-    right: 13px;
-    bottom: 10px;
-}
 .box .background {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    // transition: filter .25s ease-in-out;
     background-size: cover;
 }
 .box .background-overlay {
@@ -134,45 +111,104 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.4);
-    transition: filter .25s background-color;
+    background-color: rgba(0,0,0,0.5);
+    transition: background-color .25s ease;
 }
-.box .platform .description {
-    margin: 0px;
+.box .info {
     position: absolute;
-    left: 13px;
-    top: 45px;
-    right: 13px;
-    bottom: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    background-color: #24313e;
+    border-bottom: 1px solid #202e3c;
+    margin-top: 150px;
+    opacity: 0;
+    transition: margin-top .2s ease, 
+                opacity .2s ease, 
+                background-color .2s ease;
+    z-index: 2;
+    color: #cecece;
 }
-.box .platform .description div {
+.box .info .title {
+    font-size: 24px;
+    height: 40px;
+    display: block;
+    padding-top: 7px;
+    padding-left: 15px;
+}
+.box .info .description {
+    position: absolute;
+    left: 15px;
+    top: 45px;
+    right: 15px;
+    bottom: 15px;
+}
+.box .info .description div {
     display: table;
     height: 100%;
     width: 100%;
 }
-.box .platform .description div span {
+.box .info .description div span {
     display: table-cell;
     vertical-align: top;
     height: 100%;
     width: 100%;
 }
-.box:hover {
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 1);
+.box .menu {
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
-// .box:hover .background {
-//     filter: blur(2px);
-// }
+.box .menu a {
+    display: inline-block;
+    float: left;
+    padding-top: 10px;
+    height: 40px;
+    text-align: center;
+    background-color: #293846;
+    border-right: 1px solid #202e3c;
+    border-top: 1px solid #202e3c;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+.box .menu a.nope {
+    pointer-events: none;
+}
+.box .menu a.nope span {
+    opacity: 0.3;
+}
+.box .menu a:after {
+    display: block;
+    background: #202d3a;
+    border-right: 1px white;
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 1px;
+}
+.box .menu a:hover {
+    background-color: #202e3c;
+    color: #e4e4e4;
+}
+.box .menu a:nth-child(3) {
+    width: 20%;
+}
+.box .menu a:nth-child(4) {
+    width: 30%;
+}
+.box:hover .info {
+    margin-top: 0px;
+    opacity: 1;
+    background-color: rgba(36, 49, 62, 0.9);
+}
 .box:hover .project-title {
-    margin-top: -37px;
+    opacity: 0;
 }
-.box:hover .platform {
-    opacity: 0.9;
-    height: 111px;
-}
-.box:hover .background-overlay {
-    background-color: rgba(0,0,0,0.8);
-}
-
 
 .tree {
     padding: 0px;
@@ -184,7 +220,7 @@
     height: 171px;
     position: relative;
     overflow: hidden;
-    transition: box-shadow .25s ease-in-out;
+    transition: box-shadow .25s ease;
 }
 .tree .project-title {
     background-color: #3f556b;
@@ -228,7 +264,7 @@
 }
 .tree .item .overlay {
     opacity: 0;
-    transition: .2s ease-in-out opacity;
+    transition: .2s ease opacity;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -242,4 +278,27 @@
 }
 .tree .item:not(.inactive):hover .platform {
     color: white !important;
+}
+
+.horizon {
+    border-radius: 5px;
+    height: 100px;
+    overflow: hidden;
+    margin: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+    color: white;
+    position: relative;
+}
+.horizon .platform {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.horizon .platform .title {
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 20px;
 }
