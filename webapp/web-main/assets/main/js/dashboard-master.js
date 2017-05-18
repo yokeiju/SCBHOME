@@ -125,11 +125,12 @@ dashboard.editMaster = function () {
     $("#TitleModal").html("Edit");
     $("#TitleButtonModal").html("Update");
     var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
-    $('#inputMaster').modal('show');
-    dashboard.inputMaster.Id(tempdata.Id);
-    dashboard.inputMaster.ProjectName(tempdata.ProjectName);
-    dashboard.inputMaster.PlatformId(tempdata.PlatformId);
-    dashboard.inputMaster.URL(tempdata.URL);
+    console.log(tempdata);
+    // $('#inputMaster').modal('show');
+    // dashboard.inputMaster.Id(tempdata.Id);
+    // dashboard.inputMaster.ProjectName(tempdata.ProjectName);
+    // dashboard.inputMaster.PlatformId(tempdata.PlatformId);
+    // dashboard.inputMaster.URL(tempdata.URL);
 }
 
 dashboard.deleteMaster = function(){
@@ -188,7 +189,6 @@ dashboard.saveMaster = function() {
 dashboard.reset = function(){
     $("#TitleModal").html("Add Master");
     $("#TitleButtonModal").html("Save");
-    // $('#inputMaster').modal('show');
     dashboard.ListPlatforms =[];
     _.each(dashboard.dataMasterPlatform(), function(v,i) { 
         console.log(v.Id);
