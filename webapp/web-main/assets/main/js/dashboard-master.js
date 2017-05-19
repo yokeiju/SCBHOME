@@ -208,8 +208,6 @@ dashboard.saveMaster = function() {
         var formData = new FormData();
         formData.append("DataMasterMap", values['Param']);
         formData.append("FileUpload", values['FileUpload']);        
-
-        console.log(values['Param'])
         $.ajax({
             url: "/web/dashboard/savepage",
             data: formData,
