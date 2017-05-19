@@ -45,16 +45,27 @@
             <div class="modal-body" data-bind="with:dashboard.inputMasterMap">
                 <form class="form-horizontal" id="myForm" role="form">
                     <input type="hidden"  class="form-control" id="IdMaster" placeholder="Project Name" data-bind="value:Id" />
-                    <div class="form-group">
-                        <label class="col-sm-12">Project Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" required validationMessage="Enter ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value: ProjectName"/>
+                    <div class="row form-group">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="col-sm-12">Project Name</label>
+                                <div class="col-sm-12">
+                                    <input type="text" required validationMessage="Enter ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value: ProjectName"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12">Description</label>
+                                <div class="col-sm-12">
+                                    <textarea class="form-control input-sm" placeholder="Description" required validationMessage="Description" name="Url" data-bind="value: Description"></textarea>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-12">Description</label>
-                        <div class="col-sm-12">
-                            <textarea class="form-control input-sm" placeholder="Description" required validationMessage="Description" name="Url" data-bind="value: Description"></textarea>
+                        <div class="col-md-4 vertical-align">
+                           <div class="uploader" onclick="$('#filePhoto').click()">
+                                Click Here Or Drag and Drop Images
+                                <img src=""/>
+                                <input type="file" name="ProjectPhoto"  id="filePhoto" />
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -69,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
                 </form>
             </div>
             <!-- Modal Footer -->

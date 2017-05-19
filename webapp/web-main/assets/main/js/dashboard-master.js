@@ -8,6 +8,7 @@ dashboard.inputMaster = {
     Id: "",
     ProjectName: "",
     Description: "",
+    Cover:"",
     Platforms:[],
 }
 
@@ -189,33 +190,53 @@ dashboard.deleteMaster = function(){
 }
 
 dashboard.saveMaster = function() {
-    console.log(ko.mapping.toJS(dashboard.inputMasterMap));
-    var validator = $("#myForm").kendoValidator().data("kendoValidator")
+    var validator = $("#myForm").data("kendoValidator");
+    if(validator==undefined){
+       validator= $("#myForm").kendoValidator().data("kendoValidator");
+    }
     if (validator.validate()) {
         viewModel.isLoading(true);
-        var url = "/web/dashboard/savepage";
+        var values = {};
+        var getfileupload = document.getElementById('filePhoto');
+        if(getfileupload.files[0] != undefined){
+            values['FileUpload']=getfileupload.files[0]
+            dashboard.inputMasterMap().Cover = getfileupload.files[0].name ;                
+        }else{
+            values['FileUpload'] = undefined;  
+        }
+        values['Param'] = ko.mapping.toJS(dashboard.inputMasterMap)
+        var formData = new FormData();
+        formData.append("DataMasterMap", values['Param']);
+        formData.append("FileUpload", values['FileUpload']);        
 
-        var param = ko.mapping.toJS(dashboard.inputMasterMap)
-        ajaxPost(url, param, function(data) {
-            if (data.Status == "OK") {
-                swal("Saved!", "Your file has been successfully Update.", "success");
-                dashboard.reset();
-                dashboard.checkedData([]);
-                dashboard.global();
-                $('#inputMaster').modal('hide');
-            } else {
-                swal("Error!", data.Message, "error");
+        console.log(values['Param'])
+        $.ajax({
+            url: "/web/dashboard/savepage",
+            data: formData,
+            contentType: false,
+            dataType: "json",
+            mimeType: 'multipart/form-data',
+            processData: false,
+            type: 'POST',
+            success: function (data) {                
+                if (data.Status == "OK") {
+                    swal("Saved!", "Your file has been successfully Update.", "success");
+                    dashboard.reset();
+                    dashboard.checkedData([]);
+                    dashboard.global();
+                    $('#inputMaster').modal('hide');
+                } else {
+                    swal("Error!", data.Message, "error");
+                }
             }
         });
+       
     }
 }
 
 dashboard.reset = function(){
-    $("#TitleModal").html("Add Master");
-    $("#TitleButtonModal").html("Save");
     dashboard.ListPlatforms =[];
     _.each(dashboard.dataMasterPlatform(), function(v,i) { 
-        console.log(v.Id);
         dashboard.ListPlatforms.push({
             PlatformId :v.Id, 
             PlatformName : v.Name, 
@@ -225,7 +246,20 @@ dashboard.reset = function(){
         });
     });
     dashboard.inputMaster.Platforms = dashboard.ListPlatforms;
-    dashboard.inputMasterMap(ko.mapping.fromJS(dashboard.inputMaster))
+    dashboard.inputMasterMap(ko.mapping.fromJS(dashboard.inputMaster));
+
+    var imageLoader = document.getElementById('filePhoto');
+    imageLoader.addEventListener('change', handleImage, false);
+    function handleImage(e) {
+    var reader = new FileReader();
+    reader.onload = function (event) {        
+        $('.uploader img').attr('src',event.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+    }
+
+    $("#TitleModal").html("Add Master");
+    $("#TitleButtonModal").html("Save");
 }
 
 dashboard.global = function(){
@@ -238,7 +272,9 @@ dashboard.global = function(){
         })
     })
 }
-$(function () {
+
+
+
+$(function(){
     dashboard.global();
-    
 })
