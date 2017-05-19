@@ -1,7 +1,7 @@
 <script src="{{ NoCacheUrl "/web/static/main/js/dashboard-index.js"}}"></script>
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/dashboard-index.css" }}" />
 
-<div class="col-md-12 no-padding-side switcher">
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side switcher">
 	<div class="input-group input-group-lg search-box">
 		<span class="input-group-addon">
 			<i class="fa fa-search"></i>
@@ -19,8 +19,8 @@
 	</div>
 </div>
 
-<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
-	<div class="col-md-4">
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
+	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="box">
 			<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + Cover + ')' }"></div>
 			<div class="background-overlay"></div>
@@ -36,21 +36,21 @@
 				</div>
 			</div>
 			<div class="menu" data-bind="foreach: Platforms">
-				<a class="col-md-3" data-bind="attr: { 'href': URL }, style: { 'border-top-color': Color }, css: { 'nope': (URL == '') }">
-					<span data-bind="text: PlatformName"></span>
+				<a class="col-md-3 col-sm-3 col-xs-3" data-bind="attr: { 'href': URL }, style: { 'border-top-color': Color }, css: { 'nope': (URL == '') }">
+					<span data-bind="html: PlatformName.replace(/ /gi, '&nbsp;')"></span>
 				</a>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'list'), foreach: dashboard.dataPageFiltered">
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'list'), foreach: dashboard.dataPageFiltered">
 	<div class="list">
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div data-bind="text: ProjectName"></div>
 		</div>
-		<div class="col-md-9" data-bind="foreach: Platforms">
-			<div class="col-md-3 item">
+		<div class="col-md-9 col-sm-9 col-xs-9" data-bind="foreach: Platforms">
+			<div class="col-md-3 col-sm-3 col-xs-3 item">
 				<div class="wrapper">
 					<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + $parent.Cover + ')' }"></div>
 					<div class="overlay"></div>

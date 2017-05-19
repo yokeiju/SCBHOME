@@ -24,25 +24,25 @@
 }
 @font-face {
     font-family: 'Open Sans';
-    src: url('../fonts/OpenSans-Regular.otf');
+    src: url('../fonts/OpenSans-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Open Sans';
-    src: url('../fonts/OpenSans-Italic.otf');
+    src: url('../fonts/OpenSans-Italic.ttf');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'Open Sans';
-    src: url('../fonts/OpenSans-Bold.otf');
+    src: url('../fonts/OpenSans-Bold.ttf');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'Open Sans';
-    src: url('../fonts/OpenSans-Light.otf');
+    src: url('../fonts/OpenSans-Light.ttf');
     font-weight: 100;
     font-style: normal;
 }
