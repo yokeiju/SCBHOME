@@ -213,10 +213,27 @@
 }
 
 .list {
-    margin-bottom: 10px;
+    border-bottom: 1px solid #f7f7f7;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 8px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
-.list > div {
-    // padding: 0px;
+.list:hover {
+    background-color: #f3f3f3;
+}
+.list:hover .header {
+    font-weight: normal;
+}
+.list:last-child {
+    border-bottom: none;
+}
+.list .header {
+    font-size: 26px;
+    font-weight: lighter;
+    padding-top: 4px;
 }
 .list .item {
     padding: 0px;
@@ -229,7 +246,7 @@
     background-color: #293846;
     position: relative;
     overflow: hidden;
-    border-radius: 22px;
+    border-radius: 19px;
     height: 46px;
     cursor: pointer;
 }
@@ -258,7 +275,7 @@
     position: absolute;
     left: 0px;
     right: 0px;
-    background-color: rgba(35, 49, 62, 0.91);
+    background-color: rgba(0,0,0,0.91);
     z-index: 3;
     top: 0;
     bottom: 0;
@@ -302,7 +319,7 @@
 }
 .list .item.nope {
     pointer-events: none;
-    opacity: 0.95;
+    opacity: 0.1;
 }
 .list .item.nope .wrapper .overlay-nope {
     opacity: 1;

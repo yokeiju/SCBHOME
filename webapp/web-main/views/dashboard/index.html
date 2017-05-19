@@ -46,11 +46,11 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'list'), foreach: dashboard.dataPageFiltered">
 	<div class="list">
-		<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="col-md-3 col-sm-6 col-xs-12 no-padding-left header">
 			<div data-bind="text: ProjectName"></div>
 		</div>
-		<div class="col-md-9 col-sm-9 col-xs-9" data-bind="foreach: Platforms">
-			<div class="col-md-3 col-sm-3 col-xs-3 item" data-bind="css: { 'nope': (URL == '') }">
+		<div class="col-md-9 col-sm-9 col-xs-9 no-padding" data-bind="foreach: Platforms">
+			<a class="col-md-3 col-sm-3 col-xs-3 item" target="_blank" data-bind="attr: { 'href': URL }, css: { 'nope': (URL == '') }">
 				<div class="wrapper">
 					<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + $parent.Cover + ')' }"></div>
 					<div class="overlay"></div>
@@ -59,7 +59,7 @@
 					<div class="platform" data-bind="style: { 'background-color': Color }, text: PlatformName"></div>
 					<div class="overlay-nope"></div>
 				</div>
-			</div>
+			</a>
 			<div class="clearfix" data-bind="visible: ($index() == ($parent.Platforms.length + 1))"></div>
 		</div>
 		<div class="clearfix"></div>
