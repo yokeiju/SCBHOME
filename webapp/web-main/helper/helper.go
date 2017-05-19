@@ -11,8 +11,11 @@ import (
 	"strings"
 )
 
-var AppName string
-var AppFolder string
+var (
+	AppName   string
+	AppFolder string
+	Config    tk.M
+)
 
 func GetBasePath() string {
 	dir, _ := os.Getwd()

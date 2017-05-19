@@ -1,24 +1,36 @@
 var dashboard = {}
 viewModel.dashboard = dashboard
 
-dashboard.dataMasterPlatform = ko.observableArray([])
-dashboard.checkedData = ko.observableArray([])
-dashboard.inputMasterMap = ko.observable()
-dashboard.inputMaster = {
-    Id: "",
-    ProjectName: "",
-    Description: "",
-    Cover:"",
-    Platforms:[],
-}
+dashboard.newPageData = function () {
+    var page = {
+        Id: "",
+        ProjectName: "",
+        Description: "",
+        Cover: "",
+        Platforms: [],
+    }
 
-dashboard.ListPlatforms = {
+    dashboard.dataMasterPlatform().forEach(function (d) {
+        var platform = dashboard.newPlatform()
+        platform.PlatformId = d.Id
+        platform.PlatformName = d.Name
+        page.Platforms.push(platform)
+    })
+
+    return page
+}
+dashboard.newPlatform = function () {
+    return {
         PlatformId :"", 
         PlatformName : "", 
         URL : "", 
         Username : "", 
         Password : "",
+    }
 }
+dashboard.dataMasterPlatform = ko.observableArray([])
+dashboard.modalTitle = ko.observable('Insert new data')
+dashboard.page = ko.mapping.fromJS(dashboard.newPageData())
 
 dashboard.getMasterPlatformData = function (callback) {
     viewModel.isLoading(true)
@@ -30,7 +42,6 @@ dashboard.getMasterPlatformData = function (callback) {
         }
 
         dashboard.dataMasterPlatform(res.Data)
-
 
         callback()
     }, function () {
@@ -49,22 +60,20 @@ dashboard.getPageData = function (callback) {
             return
         }
 
-        var data = _.sortBy(res.Data.map(function (d) {
-            var platform = dashboard.dataMasterPlatform().find(function (e) { 
-                return e.Id == d.PlatformId
+        res.Data.forEach(function (d) {
+            dashboard.dataMasterPlatform().forEach(function (e) {
+                var row = d.Platforms.find(function (k) {
+                    return k.PlatformId == e.Id
+                })
+                if (row === undefined) {
+                    d.Platforms.push(dashboard.newPlatform())
+                }
             })
-            if (typeof platform !== 'undefined') {
-                d.Color = platform.Color
-                d.PlatformName = platform.Name
-            }
 
-            // if (d.URL.indexOf('http') !== 0) {
-            //     d.URL = 'http://' + d.URL
-            // }
+            d.Platforms = _.sortBy(d.Platforms, 'PlatformName')
+        })
 
-            return d
-        }), 'ProjectName')
-        dashboard.dataPage(data)
+        dashboard.dataPage(_.sortBy(res.Data, 'ProjectName'))
 
         callback()
     }, function () {
@@ -73,7 +82,7 @@ dashboard.getPageData = function (callback) {
     })
 }
 
-dashboard.refresh = function () {
+dashboard.renderGrid = function () {
     var data = dashboard.dataPage()
 
     if (typeof $('.grid').data('kendoGrid') !== 'undefined') {
@@ -118,7 +127,7 @@ dashboard.refresh = function () {
         title: '&nbsp;', 
         width: 40, 
         template: function (d) {
-            return '<input class="checkboxgrid" type="checkbox" id="checkbox-'+d.Id+'" onclick="dashboard.listcheck(\''+d.Id+'\')"/>'
+            return '<input class="checkboxgrid" type="checkbox" data-id="'+d.Id+'"/>'
         }, 
         attributes: { class: 'align-center' }
     }])
@@ -135,13 +144,28 @@ dashboard.refresh = function () {
     })
 }
 
-dashboard.listcheck = function(idmaster){
-    if($('#checkbox-'+idmaster).is(':checked')){
-        dashboard.checkedData.push(idmaster)
-    } else {
-        var index = dashboard.checkedData().indexOf(idmaster);
-        dashboard.checkedData().splice(index, 1);
-    }
+dashboard.checkedData = function () {
+    return $('.checkboxgrid').get().filter(function (d) {
+        return d.checked
+    }).map(function (d) {
+        return $(d).attr('data-id')
+    })
+}
+
+dashboard.addMaster = function(){
+    // var imageLoader = document.getElementById('filePhoto');
+    // imageLoader.addEventListener('change', handleImage, false);
+    // function handleImage(e) {
+    // var reader = new FileReader();
+    // reader.onload = function (event) {        
+    //     $('.uploader img').attr('src',event.target.result);
+    // }
+    // reader.readAsDataURL(e.target.files[0]);
+    // }
+
+    dashboard.modalTitle("Insert new data")
+    ko.mapping.fromJS(dashboard.newPageData(), dashboard.page)
+    $('#modal-page').modal('show')
 }
 
 dashboard.editMaster = function () {
@@ -150,12 +174,11 @@ dashboard.editMaster = function () {
         return
     }
 
-    $("#TitleModal").html("Edit");
-    $("#TitleButtonModal").html("Update");
-    var tempdata = _.find(dashboard.dataPage(),{Id:dashboard.checkedData()[0]});
-    console.log(tempdata);
-    $('#inputMaster').modal('show');
-    dashboard.inputMasterMap(ko.mapping.fromJS(tempdata))
+    dashboard.modalTitle('Edit data')
+
+    var row = _.find(dashboard.dataPage(), { Id: dashboard.checkedData()[0] })
+    ko.mapping.fromJS(row, dashboard.page)
+    $('#modal-page').modal('show')
 }
 
 dashboard.deleteMaster = function(){
@@ -177,9 +200,8 @@ dashboard.deleteMaster = function(){
             var url = "/web/dashboard/deletepage";
             var param = { Ids: dashboard.checkedData() }
             ajaxPost(url, param, function(data) {
-                if (data.Status == "OK") {            
-                    dashboard.checkedData([]);
-                    dashboard.global();
+                if (data.Status == "OK") {
+                    dashboard.refresh();
                     swal("Deleted!", "Your Data has been deleted.", "success");
                 } else {
                     swal("Error!", data.Message, "error");
@@ -189,92 +211,80 @@ dashboard.deleteMaster = function(){
     });
 }
 
-dashboard.saveMaster = function() {
+dashboard.getUploadedFiles = function () {
+    var obj = document.getElementById('filePhoto')
+    if (obj === undefined) {
+        return null
+    }
+
+    var file = obj.files[0]
+    if (file === undefined) {
+        return null
+    }
+
+    return file
+}
+
+dashboard.saveMaster = function () {
     var validator = $("#myForm").data("kendoValidator");
-    if(validator==undefined){
-       validator= $("#myForm").kendoValidator().data("kendoValidator");
+    if (validator === undefined) {
+       validator = $("#myForm").kendoValidator().data("kendoValidator");
     }
-    if (validator.validate()) {
-        viewModel.isLoading(true);
-        var values = {};
-        var getfileupload = document.getElementById('filePhoto');
-        if(getfileupload.files[0] != undefined){
-            values['FileUpload']=getfileupload.files[0]
-            dashboard.inputMasterMap().Cover = getfileupload.files[0].name ;                
-        }else{
-            values['FileUpload'] = undefined;  
-        }
-        values['Param'] = ko.mapping.toJS(dashboard.inputMasterMap)
-        var formData = new FormData();
-        formData.append("DataMasterMap", values['Param']);
-        formData.append("FileUpload", values['FileUpload']);        
+    if (!validator.validate()) {
+        return
+    }
 
-        console.log(values['Param'])
-        $.ajax({
-            url: "/web/dashboard/savepage",
-            data: formData,
-            contentType: false,
-            dataType: "json",
-            mimeType: 'multipart/form-data',
-            processData: false,
-            type: 'POST',
-            success: function (data) {                
-                if (data.Status == "OK") {
-                    swal("Saved!", "Your file has been successfully Update.", "success");
-                    dashboard.reset();
-                    dashboard.checkedData([]);
-                    dashboard.global();
-                    $('#inputMaster').modal('hide');
-                } else {
-                    swal("Error!", data.Message, "error");
-                }
+    var formData = new FormData()
+
+    var payload = JSON.stringify(ko.mapping.toJS(dashboard.page))
+    formData.append('data', payload)
+
+    var file = dashboard.getUploadedFiles()
+    if (file !== null) {
+        formData.append('file', file)
+    }
+
+    viewModel.isLoading(true)
+    $.ajax({
+        url: "/web/dashboard/savepage",
+        data: formData,
+        contentType: false,
+        dataType: "json",
+        mimeType: 'multipart/form-data',
+        processData: false,
+        type: 'POST',
+        success: function (data) {       
+            viewModel.isLoading(false)
+
+            if (data.Status == "OK") {
+                swal("Saved!", "Your file has been successfully Update.", "success");
+                dashboard.refresh();
+                $('#modal-page').modal('hide');
+            } else {
+                swal("Error!", data.Message, "error");
             }
-        });
-       
-    }
-}
-
-dashboard.reset = function(){
-    dashboard.ListPlatforms =[];
-    _.each(dashboard.dataMasterPlatform(), function(v,i) { 
-        dashboard.ListPlatforms.push({
-            PlatformId :v.Id, 
-            PlatformName : v.Name, 
-            URL : "", 
-            Username : "", 
-            Password : "",
-        });
+        },
+        error: function () {
+            viewModel.isLoading(true)
+        }
     });
-    dashboard.inputMaster.Platforms = dashboard.ListPlatforms;
-    dashboard.inputMasterMap(ko.mapping.fromJS(dashboard.inputMaster));
-
-    var imageLoader = document.getElementById('filePhoto');
-    imageLoader.addEventListener('change', handleImage, false);
-    function handleImage(e) {
-    var reader = new FileReader();
-    reader.onload = function (event) {        
-        $('.uploader img').attr('src',event.target.result);
-    }
-    reader.readAsDataURL(e.target.files[0]);
-    }
-
-    $("#TitleModal").html("Add Master");
-    $("#TitleButtonModal").html("Save");
 }
 
-dashboard.global = function(){
-    dashboard.getMasterPlatformData(function() {
-        dashboard.getPageData(function() {
-            setTimeout(function() {
-                viewModel.isLoading(false)
-                dashboard.refresh()
-            }, 1000)
-        })
+dashboard.refresh = function () {
+    dashboard.getPageData(function () {
+        setTimeout(function () {
+            viewModel.isLoading(false)
+            dashboard.renderGrid()
+        }, 1000)
     })
 }
 
+dashboard.init = function () {
+    dashboard.getMasterPlatformData(function () {
+        dashboard.refresh()
+    })
+}
 
-
-$(function(){
-    dashboard.global();
+$(function () {
+    dashboard.init()
 })

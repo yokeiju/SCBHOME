@@ -15,8 +15,19 @@ import (
 const APP_NAME = "web"
 const APP_FOLDER = "web-main"
 
+var BASE_PATH = (func(dir string, err error) string { return dir })(os.Getwd())
+
 func Register() *knot.App {
-	SpreadAppName()
+	controllers.AppName = APP_NAME
+	controllers.AppFolder = APP_FOLDER
+	helper.AppName = APP_NAME
+	helper.AppFolder = APP_FOLDER
+
+	config := helper.ReadConfig()
+	controllers.Config = config
+	helper.Config = config
+
+	// ==== start
 
 	tk.Println("===========> Registering", APP_NAME, "@", APP_FOLDER)
 	const LOG_PREFIX_SUB = "           >"
@@ -29,7 +40,6 @@ func Register() *knot.App {
 		return nil
 	}
 
-	config := helper.ReadConfig()
 	ctx := orm.New(conn)
 	baseCtrl := new(controllers.BaseController)
 	baseCtrl.Ctx = ctx
@@ -61,11 +71,4 @@ func Register() *knot.App {
 	knot.RegisterApp(app)
 
 	return app
-}
-
-func SpreadAppName() {
-	controllers.AppName = APP_NAME
-	controllers.AppFolder = APP_FOLDER
-	helper.AppName = APP_NAME
-	helper.AppFolder = APP_FOLDER
 }

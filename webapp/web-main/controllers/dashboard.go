@@ -4,6 +4,9 @@ import (
 	"eaciit/scbhome/webapp/web-main/models"
 	"github.com/eaciit/knot/knot.v1"
 	tk "github.com/eaciit/toolkit"
+	"io"
+	"os"
+	"path/filepath"
 )
 
 type DashboardController struct {
@@ -56,17 +59,47 @@ func (c *DashboardController) GetPage(k *knot.WebContext) interface{} {
 func (c *DashboardController) SavePage(k *knot.WebContext) interface{} {
 	c.SetupForAJAX(k)
 
-	payload := new(models.PageModel)
-	err := k.GetPayload(&payload)
+	payload := new(tk.M)
+	fileHeader, formData, err := k.GetPayloadMultipart(payload)
 	if err != nil {
 		return c.SetResultError(err.Error(), nil)
 	}
 
-	if payload.Id == "" {
-		payload.Id = tk.RandomString(32)
+	data := new(models.PageModel)
+	tk.UnjsonFromString(formData["data"][0], data)
+
+	if len(fileHeader["file"]) > 0 {
+		file, handler, err := k.Request.FormFile("file")
+		if err != nil {
+			return c.SetResultError(err.Error(), nil)
+		}
+
+		defer file.Close()
+
+		tk.RandomString(32)
+
+		baseImagePath := Config.GetString("uploadpath")
+		fileName := tk.RandomString(32) + filepath.Ext(handler.Filename)
+		filePath := filepath.Join(baseImagePath, fileName)
+		f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			return c.SetResultError(err.Error(), nil)
+		}
+
+		defer f.Close()
+		_, err = io.Copy(f, file)
+		if err != nil {
+			return c.SetResultError(err.Error(), nil)
+		}
+
+		data.Cover = fileName
 	}
 
-	err = c.Ctx.Save(payload)
+	if data.Id == "" {
+		data.Id = tk.RandomString(32)
+	}
+
+	err = c.Ctx.Save(data)
 	if err != nil {
 		return c.SetResultError(err.Error(), nil)
 	}

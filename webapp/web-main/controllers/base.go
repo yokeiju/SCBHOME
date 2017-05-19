@@ -39,6 +39,7 @@ type Previlege struct {
 var (
 	AppName   string
 	AppFolder string
+	Config    tk.M
 )
 
 const (

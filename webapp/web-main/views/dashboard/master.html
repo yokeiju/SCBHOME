@@ -10,7 +10,7 @@
             <button class="btn btn-sm btn-primary" onclick="dashboard.global()">
                 <i class="fa fa-refresh"></i> Refresh
             </button>
-            <button class="btn btn-sm btn-success" data-target="#inputMaster" data-toggle="modal" onclick="dashboard.reset()">
+            <button class="btn btn-sm btn-success" onclick="dashboard.addMaster()">
                 <i class="fa fa-plus"></i> Add New
             </button>
             <button class="btn btn-sm btn-primary" onclick="dashboard.editMaster()">
@@ -28,7 +28,7 @@
 <div class="grid"></div>
 
 <!-- Modal -->
-<div class="modal fade" id="inputMaster" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-page" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -38,11 +38,11 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    <span id="TitleModal"></span>
+                    <span data-bind="text: dashboard.modalTitle"></span>
                 </h4>
             </div>
             <!-- Modal Body -->
-            <div class="modal-body" data-bind="with:dashboard.inputMasterMap">
+            <div class="modal-body" data-bind="with: dashboard.page">
                 <form class="form-horizontal" id="myForm" role="form">
                     <input type="hidden"  class="form-control" id="IdMaster" placeholder="Project Name" data-bind="value:Id" />
                     <div class="row form-group">
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label class="col-sm-12">Project Name</label>
                                 <div class="col-sm-12">
-                                    <input type="text" required validationMessage="Enter ProjectName" class="form-control" id="projectname" placeholder="Project Name" data-bind="value: ProjectName"/>
+                                    <input type="text" required validationMessage="Enter ProjectName" class="form-control" placeholder="Project Name" data-bind="value: ProjectName"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -71,12 +71,12 @@
                     <div class="form-group">
                         <label class="col-sm-3">Platform Name</label>
                         <label class="col-sm-9">Url</label>   
-                        <div class="col-sm-12 no-padding" data-bind="foreach:Platforms">                     
+                        <div class="col-sm-12 no-padding" data-bind="foreach: Platforms">                     
                             <div class="col-sm-3 bottom-padding no-padding">
-                                 <span class="col-sm-12 no-padding-left labelnormal" data-bind="text:PlatformName"></span>
+                                 <span class="col-sm-12 no-padding-left labelnormal" data-bind="text: PlatformName"></span>
                             </div>
                             <div class="col-sm-9 bottom-padding">
-                                 <input type="text" class="form-control" data-bind="value:URL"/>
+                                 <input type="text" class="form-control" data-bind="value: URL"/>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="dashboard.saveMaster()">
-                    <span id="TitleButtonModal"></span>
+                    Save
                 </button>
             </div>
         </div>
