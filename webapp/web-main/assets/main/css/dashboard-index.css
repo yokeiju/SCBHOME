@@ -111,7 +111,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.2);
     transition: background-color .25s ease;
 }
 .box .info {
@@ -128,7 +128,7 @@
                 opacity .2s ease, 
                 background-color .2s ease;
     z-index: 2;
-    color: #cecece;
+    color: #d8d8d8;
 }
 .box .info .title {
     font-size: 24px;
@@ -165,6 +165,8 @@
 .box .menu a {
     display: inline-block;
     float: left;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 10px;
     height: 40px;
     text-align: center;
@@ -210,95 +212,116 @@
     opacity: 0;
 }
 
-.tree {
+.list {
+    border-bottom: 1px solid #f7f7f7;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 8px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.list:hover {
+    background-color: #f3f3f3;
+}
+.list:hover .header {
+    font-weight: normal;
+}
+.list:last-child {
+    border-bottom: none;
+}
+.list .header {
+    font-size: 26px;
+    font-weight: lighter;
+    padding-top: 4px;
+}
+.list .item {
     padding: 0px;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 18px;
-    text-align: center;
+    transition: ease .15 opacity;
+}
+.list .item .wrapper {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
-    height: 171px;
+    padding: 10px;
+    margin: 0px 5px;
+    background-color: #293846;
     position: relative;
     overflow: hidden;
-    transition: box-shadow .25s ease;
-}
-.tree .project-title {
-    background-color: #3f556b;
-    color: white;
-    padding: 12px;
-    font-size: 20px;
-}
-.tree .item {
-    padding: 0px;
-    height: 60px;
-    border-right: 1px solid whitesmoke;
-    border-bottom: 1px solid whitesmoke;
-    posi
-}
-.tree .item.inactive {
-    // opacity: 0.8;
-    // pointer-events: none;
-    // background-color: #f1f1f1;
-    // filter: blur(0.6px);
-    // border-color: white;
-    opacity: 0.3;
-    background-color: #f9f9f9;
-}
-.tree .item.inactive span {
-    cursor: not-allowed;
-}
-.tree .item .wrapper {
-    display: table;
-    width: 100%;
-    height: 100%;
+    border-radius: 19px;
+    height: 46px;
     cursor: pointer;
-    position: relative;
-    z-index: 2;
 }
-.tree .item .wrapper .platform {
-    font-size: 18px;
-    display: table-cell;
-    vertical-align: middle;
-    height: 100%;
-    width: 100%;
-}
-.tree .item .overlay {
-    opacity: 0;
-    transition: .2s ease opacity;
-    height: 100%;
-    width: 100%;
+.list .item .wrapper .background {
     position: absolute;
     top: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    width: 106px;
 }
-.tree .item:nth-child(even) {
-    border-right: none;
+.list .item .wrapper .overlay,
+.list .item .wrapper .overlay-mask {
+    background: linear-gradient(to left, rgba(255,0,0,0), #293846);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 106px;
 }
-.tree .item:not(.inactive):hover .overlay {
+.list .item .wrapper .overlay-mask {
+    background: #202a33;
+    opacity: 0;
+}
+.list .item .wrapper .overlay-nope {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0,0,0,0.91);
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+}
+.list .item .wrapper .platform {
+    position: absolute;
+    left: 10px;
+    padding: 4px 11px 5px;
+    border-radius: 20px;
+    color: white;
+    z-index: 2;
+    transition: ease .15s left, ease .15s right;
+}
+.list .item .wrapper .open-label {
+    color: white;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    opacity: 0;
+    transition: ease .15 opacity;
+}
+.list .item:last-child:after {
+    clear: both;
+}
+.list .item:hover {
+    opacity: 0.95;
+}
+.list .item:hover .wrapper {
+    background-color: #202a33;
+}
+.list .item:hover .wrapper .overlay-mask {
     opacity: 1;
 }
-.tree .item:not(.inactive):hover .platform {
-    color: white !important;
+.list .item:hover .wrapper .platform {
+    left: auto;
+    right: 10px;
+}
+.list .item:hover .wrapper .open-label {
+    opacity: 1;
+}
+.list .item.nope {
+    pointer-events: none;
+    opacity: 0.1;
+}
+.list .item.nope .wrapper .overlay-nope {
+    opacity: 1;
 }
 
-.horizon {
-    border-radius: 5px;
-    height: 100px;
-    overflow: hidden;
-    margin: 5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
-    color: white;
-    position: relative;
-}
-.horizon .platform {
-    display: table;
-    height: 100%;
-    width: 100%;
-}
-.horizon .platform .title {
-    display: table-cell;
-    height: 100%;
-    width: 100%;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 20px;
-}

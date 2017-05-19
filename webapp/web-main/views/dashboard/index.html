@@ -1,7 +1,7 @@
 <script src="{{ NoCacheUrl "/web/static/main/js/dashboard-index.js"}}"></script>
 <link rel="stylesheet" href="{{ NoCacheUrl "/web/static/main/css/dashboard-index.css" }}" />
 
-<div class="col-md-12 no-padding-side switcher">
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side switcher">
 	<div class="input-group input-group-lg search-box">
 		<span class="input-group-addon">
 			<i class="fa fa-search"></i>
@@ -10,17 +10,17 @@
 	</div>
 	
 	<div class="pull-right">
-	 	<button class="btn btn-sm btn-gray active" data-bind="click: function () { dashboard.mode('box') }, css: { 'active': (dashboard.mode() == 'box') }">
+	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('box') }, css: { 'active': (dashboard.mode() == 'box') }">
 	 		<span class="fa fa-lg fa-th"></span>
 		</button>
-	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('tree') }, css: { 'active': (dashboard.mode() == 'tree') }">
+	 	<button class="btn btn-sm btn-gray" data-bind="click: function () { dashboard.mode('list') }, css: { 'active': (dashboard.mode() == 'list') }">
 	 		<span class="fa fa-lg fa-list-ul"></span>
 		</button>
 	</div>
 </div>
 
-<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
-	<div class="col-md-4">
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'box'), foreach: dashboard.dataPageFiltered">
+	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="box">
 			<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + Cover + ')' }"></div>
 			<div class="background-overlay"></div>
@@ -36,27 +36,33 @@
 				</div>
 			</div>
 			<div class="menu" data-bind="foreach: Platforms">
-				<a class="col-md-3" data-bind="attr: { 'href': URL }, style: { 'border-top-color': Color }, css: { 'nope': (URL == '') }">
-					<span data-bind="text: PlatformName"></span>
+				<a class="col-md-3 col-sm-3 col-xs-3" data-bind="attr: { 'href': URL }, style: { 'border-top-color': Color }, css: { 'nope': (URL == '') }">
+					<span data-bind="html: PlatformName.replace(/ /gi, '&nbsp;')"></span>
 				</a>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- 
-<div class="col-md-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'tree'), foreach: dashboard.dataPageBoxFiltered">
-	<div class="col-md-4">
-		<div class="tree">
-			<div class="project-title" data-bind="text: ProjectName"></div>
-			<div data-bind="foreach: Data">
-				<div class="col-md-6 item" data-bind="css: { 'inactive': (URL == '') }, attr: { 'data-id': Id }" onclick="dashboard.openById(this)">
-					<div class="wrapper">
-						<span class="platform" data-bind="text: PlatformName, style: { 'color': Color }"></span>
-					</div>
-					<div class="overlay" data-bind="style: { 'background-color': Color }"></div>
-				</div>
-			</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding-side content-wrapper" data-bind="visible: (dashboard.mode() == 'list'), foreach: dashboard.dataPageFiltered">
+	<div class="list">
+		<div class="col-md-3 col-sm-6 col-xs-12 no-padding-left header">
+			<div data-bind="text: ProjectName"></div>
 		</div>
+		<div class="col-md-9 col-sm-9 col-xs-9 no-padding" data-bind="foreach: Platforms">
+			<a class="col-md-3 col-sm-3 col-xs-3 item" target="_blank" data-bind="attr: { 'href': URL }, css: { 'nope': (URL == '') }">
+				<div class="wrapper">
+					<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + $parent.Cover + ')' }"></div>
+					<div class="overlay"></div>
+					<div class="overlay-mask"></div>
+					<div class="open-label">Open in new tab</div>
+					<div class="platform" data-bind="style: { 'background-color': Color }, text: PlatformName"></div>
+					<div class="overlay-nope"></div>
+				</div>
+			</a>
+			<div class="clearfix" data-bind="visible: ($index() == ($parent.Platforms.length + 1))"></div>
+		</div>
+		<div class="clearfix"></div>
 	</div>
 </div>
- -->
+
