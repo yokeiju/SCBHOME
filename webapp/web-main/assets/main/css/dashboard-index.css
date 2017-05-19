@@ -128,7 +128,7 @@
                 opacity .2s ease, 
                 background-color .2s ease;
     z-index: 2;
-    color: #cecece;
+    color: #d8d8d8;
 }
 .box .info .title {
     font-size: 24px;
