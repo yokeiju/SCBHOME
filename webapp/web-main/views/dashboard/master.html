@@ -69,11 +69,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3">Platform Name</label>
-                        <label class="col-sm-9">Url</label>   
+                        <div class="col-md-12 no-padding-side bottom-padding">
+                            <label class="col-sm-3">Platform Name</label>
+                            <label class="col-sm-9">Url</label>   
+                        </div>
                         <div class="col-sm-12 no-padding" data-bind="foreach: Platforms">                     
                             <div class="col-sm-3 bottom-padding no-padding">
-                                 <span class="col-sm-12 no-padding-left labelnormal" data-bind="text: PlatformName"></span>
+                                 <span class="col-sm-12 link-label" data-bind="text: PlatformName"></span>
                             </div>
                             <div class="col-sm-9 bottom-padding">
                                  <input type="text" class="form-control" data-bind="value: URL"/>
