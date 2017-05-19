@@ -61,16 +61,16 @@
     padding-bottom: 5px;
 }
 
-.modal .modal-dialog { width: 50%; }
+ .modal .modal-dialog { width: 50%; }
 
-#dropzone_single{
+ #dropzone_single{
     width: 100%;
     height: 200px;
     border: 5px dashed gray;
     margin: 0;
     text-align: center;
     padding-top: 25%;    
-}
+ }
 
 .uploader { 
     position:relative;
