@@ -220,6 +220,7 @@
 }
 .list .item {
     padding: 0px;
+    transition: ease .15 opacity;
 }
 .list .item .wrapper {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
@@ -228,6 +229,9 @@
     background-color: #293846;
     position: relative;
     overflow: hidden;
+    border-radius: 22px;
+    height: 46px;
+    cursor: pointer;
 }
 .list .item .wrapper .background {
     position: absolute;
@@ -237,7 +241,8 @@
     background-size: cover;
     width: 106px;
 }
-.list .item .wrapper .overlay {
+.list .item .wrapper .overlay,
+.list .item .wrapper .overlay-mask {
     background: linear-gradient(to left, rgba(255,0,0,0), #293846);
     position: absolute;
     top: 0;
@@ -245,21 +250,61 @@
     bottom: 0;
     width: 106px;
 }
-// .list .item:first-child .wrapper {
-//     padding-left: 0px;
-// }
-// .list .item:last-child .wrapper {
-//     padding-right: 0px;
-// }
+.list .item .wrapper .overlay-mask {
+    background: #202a33;
+    opacity: 0;
+}
+.list .item .wrapper .overlay-nope {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(35, 49, 62, 0.91);
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+}
 .list .item .wrapper .platform {
-    display: inline-block;
+    position: absolute;
+    left: 10px;
     padding: 4px 11px 5px;
     border-radius: 20px;
     color: white;
-    position: relative;
     z-index: 2;
+    transition: ease .15s left, ease .15s right;
+}
+.list .item .wrapper .open-label {
+    color: white;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    opacity: 0;
+    transition: ease .15 opacity;
 }
 .list .item:last-child:after {
     clear: both;
+}
+.list .item:hover {
+    opacity: 0.95;
+}
+.list .item:hover .wrapper {
+    background-color: #202a33;
+}
+.list .item:hover .wrapper .overlay-mask {
+    opacity: 1;
+}
+.list .item:hover .wrapper .platform {
+    left: auto;
+    right: 10px;
+}
+.list .item:hover .wrapper .open-label {
+    opacity: 1;
+}
+.list .item.nope {
+    pointer-events: none;
+    opacity: 0.95;
+}
+.list .item.nope .wrapper .overlay-nope {
+    opacity: 1;
 }
 

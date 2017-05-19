@@ -125,5 +125,5 @@ $(function () {
     dashboard.getMasterPlatformData(function () {
         dashboard.getPageData()
     })
-    // dashboard.mode('list')
+    dashboard.mode('list')
 })

@@ -50,11 +50,14 @@
 			<div data-bind="text: ProjectName"></div>
 		</div>
 		<div class="col-md-9 col-sm-9 col-xs-9" data-bind="foreach: Platforms">
-			<div class="col-md-3 col-sm-3 col-xs-3 item">
+			<div class="col-md-3 col-sm-3 col-xs-3 item" data-bind="css: { 'nope': (URL == '') }">
 				<div class="wrapper">
 					<div class="background" data-bind="style: { 'background-image': 'url(/web/static/main/images/upload/' + $parent.Cover + ')' }"></div>
 					<div class="overlay"></div>
+					<div class="overlay-mask"></div>
+					<div class="open-label">Open in new tab</div>
 					<div class="platform" data-bind="style: { 'background-color': Color }, text: PlatformName"></div>
+					<div class="overlay-nope"></div>
 				</div>
 			</div>
 			<div class="clearfix" data-bind="visible: ($index() == ($parent.Platforms.length + 1))"></div>
