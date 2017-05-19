@@ -152,17 +152,7 @@ dashboard.checkedData = function () {
     })
 }
 
-dashboard.addMaster = function(){
-    // var imageLoader = document.getElementById('filePhoto');
-    // imageLoader.addEventListener('change', handleImage, false);
-    // function handleImage(e) {
-    // var reader = new FileReader();
-    // reader.onload = function (event) {        
-    //     $('.uploader img').attr('src',event.target.result);
-    // }
-    // reader.readAsDataURL(e.target.files[0]);
-    // }
-
+dashboard.addMaster = function () {
     dashboard.modalTitle("Insert new data")
     ko.mapping.fromJS(dashboard.newPageData(), dashboard.page)
     $('#modal-page').modal('show')
@@ -179,6 +169,8 @@ dashboard.editMaster = function () {
     var row = _.find(dashboard.dataPage(), { Id: dashboard.checkedData()[0] })
     ko.mapping.fromJS(row, dashboard.page)
     $('#modal-page').modal('show')
+
+    $('.uploader img').attr('src', '/web/static/main/images/upload/' + row.Cover)
 }
 
 dashboard.deleteMaster = function(){
@@ -212,7 +204,7 @@ dashboard.deleteMaster = function(){
 }
 
 dashboard.getUploadedFiles = function () {
-    var obj = document.getElementById('filePhoto')
+    var obj = document.getElementById('photo')
     if (obj === undefined) {
         return null
     }
@@ -279,7 +271,23 @@ dashboard.refresh = function () {
     })
 }
 
+dashboard.registerDragImagePreview = function () {
+    var imageLoader = document.getElementById('photo')
+    imageLoader.addEventListener('change', function (e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {        
+            $('.uploader img').attr('src', event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }, false)
+
+    $('.uploader img').on('click', function () {
+        $('.uploader input').trigger('click')
+    })
+}
+
 dashboard.init = function () {
+    dashboard.registerDragImagePreview()
     dashboard.getMasterPlatformData(function () {
         dashboard.refresh()
     })
