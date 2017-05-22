@@ -79,6 +79,9 @@
     height: 200px;
     background: #f3f3f3;
 }
+.uploader img {
+    cursor: pointer;
+}
 .uploader span {
     position: absolute;
     z-index: 2;
