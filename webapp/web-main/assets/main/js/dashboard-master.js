@@ -281,7 +281,7 @@ dashboard.registerDragImagePreview = function () {
         reader.readAsDataURL(e.target.files[0]);
     }, false)
 
-    $('.uploader img').on('click', function () {
+    $('.uploader img, .uploader span').on('click', function () {
         $('.uploader input').trigger('click')
     })
 }
